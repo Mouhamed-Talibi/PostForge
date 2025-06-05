@@ -1,0 +1,194 @@
+/* google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=Inconsolata:wght@200..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Quicksand:wght@300..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+/* main colors */
+:root {
+    --primary-blue: #007BFF;
+    --rich-black: #0D1117;
+    --pure-white: #FFFFFF;
+    --light-steel-blue: #D0E2FF;
+    --sky-blue: #5BC0EB;
+    --light-gray: #CCCCCC;
+}
+
+/* body */
+body {
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+}
+
+/* Loader Styles */
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.loader {
+    width: 20vw;
+    max-width: 120px;
+    height: 22px;
+    border-radius: 40px;
+    border: 2px solid var(--rich-black);
+    position: relative;
+}
+
+.loader::before {
+    content: "";
+    position: absolute;
+    margin: 2px;
+    width: 25%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: inherit;
+    background: var(--sky-blue);
+    animation: l3 1s infinite linear;
+}
+
+@keyframes l3 {
+    50% { left: 100%; transform: translateX(calc(-100% - 4px)); }
+}
+
+.loader-container p {
+    margin-top: 15px;
+    color: var(--rich-black);
+    font-size: 20px;
+}
+
+/* Content Styles (initially hidden) */
+#content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+#content.show {
+    display: block;
+    opacity: 1;
+}
+
+.custom-navbar {
+    background-color: var(--rich-black);
+}
+
+.navbar-brand img {
+    width: 50px;
+    height: 50px;
+}
+
+.navbar-toggler {
+    background-color: var(--sky-blue);
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding: 8px 10px;
+    border-radius: 4px;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:hover {
+    background-color: var(--primary-blue);
+    box-shadow: none;
+    outline: none;
+}
+
+.navbar-nav .nav-link {
+    color: var(--pure-white);
+    margin-left: 15px;
+    transition: color 0.3s, background-color 0.3s, padding 0.3s, border-radius 0.3s;
+}
+
+.navbar-nav .nav-link:hover:not(.register) {
+    color: var(--sky-blue);
+}
+
+/* Register animation */
+.navbar-nav .nav-link.register {
+    padding: 5px 15px;
+    border-radius: 20px;
+    background-color: transparent;
+    background-color: var(--primary-blue);
+}
+
+.navbar-nav .nav-link.register:hover {
+    background-color: var(--sky-blue);
+    color: var(--pure-white);
+    box-shadow: 0 0 10px var(--primary-blue);
+}
+
+.search-form input {
+    border: 1px solid var(--rich-black);
+    border-radius: 4px;
+}
+
+.search-form .btn {
+    background-color: var(--primary-blue);
+    border: none;
+    color: var(--pure-white);
+    transition: background-color 0.3s;
+}
+
+.search-form .btn:hover {
+    background-color: #0056b3;
+}
+
+.nav-item form .logout {
+    border: 2px solid #c54444;
+    color: #c54444;
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+.nav-item form .logout:hover {
+    background-color: #c54444;
+    color: var(--light-gray);
+    transition: .4s all ease;
+}
+
+/* footer style */
+.footer-custom {
+    background-color: var(--rich-black);
+    color: var(--pure-white);
+}
+
+.footer-custom .logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    color: var(--primary-blue);
+}
+
+.footer-custom .footer-link {
+    color: var(--light-gray);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+}
+
+.footer-custom .footer-link:hover {
+    color: var(--sky-blue);
+    margin-left: 10px;
+    transition: .3s all ease-in-out;
+}
+
+.footer-custom .small-text {
+    font-size: 0.9rem;
+    color: var(--light-gray);
+}
+
+.footer-custom h3 {
+    color: var(--primary-blue);
+    text-decoration: underline;
+}
