@@ -26,8 +26,8 @@
 
                 {{-- guest links --}}
                 @guest
-                    <li class="nav-item"><a class="nav-link login" href="#">Login</a></li>
-                    <li class="nav-item"><a class="nav-link register" href="#">Register</a></li>
+                    <li class="nav-item"><a class="nav-link login" href="{{ route('auth.loginForm') }}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link register" href="{{ route('auth.regsitrationForm') }}">Register</a></li>
                 @endguest
 
                 {{-- auth links --}}

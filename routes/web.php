@@ -3,6 +3,7 @@
     use App\Http\Controllers\AppController;
     use App\Http\Controllers\AuthController;
     use Illuminate\Support\Facades\Route;
+    use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
     // home page
     Route::get('/', [AppController::class, 'index'])
@@ -19,5 +20,12 @@
         Route::get('register', [AuthController::class, 'showRegistrationForm'])
             ->name('regsitrationForm');
         Route::post('login', [AuthController::class, 'register'])
-            ->name('regsiter');
+            ->name('register');
+        // verify email
+        Route::get('verify_email', [AuthController::class, 'verifyEmail'])
+            ->name('verifyEmail');
+        // confirm email
+        Route::get('confirm_email/{hash}', [AuthController::class, 'confirmEmail'])
+            ->name('confirmEmail');
     });
+
