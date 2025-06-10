@@ -7,6 +7,8 @@
 
     class Creator extends Model
     {
+        protected $guard = 'creator';
+
         // soft deletes
         use SoftDeletes;
 

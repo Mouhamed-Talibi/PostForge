@@ -19,7 +19,7 @@
         // regsiter routes
         Route::get('register', [AuthController::class, 'showRegistrationForm'])
             ->name('regsitrationForm');
-        Route::post('login', [AuthController::class, 'register'])
+        Route::post('register', [AuthController::class, 'register'])
             ->name('register');
         // verify email
         Route::get('verify_email', [AuthController::class, 'verifyEmail'])

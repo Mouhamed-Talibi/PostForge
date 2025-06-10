@@ -11,7 +11,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,19 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'email' => 'required|email|exists:creators,email',
+            'password' => 'required|min:8',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'email.required' => "Email is required!",
+            'email.email' => "Please enter a valid email!",
+            'email.exists' => "No account found with this email",
+            'password.required' => "Password is required!",
+            'password.min' => "Password not correct !",
         ];
     }
 }

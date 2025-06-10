@@ -63,6 +63,8 @@
         // login
         public function Login(LoginRequest $request) {
             // login logic
+            $creadentials = $request->validated();
+            dd($creadentials);
         }
 
         // verifyEmail

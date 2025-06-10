@@ -50,7 +50,7 @@
 
                 'email.required' => 'Email is required.',
                 'email.email' => 'Please enter a valid email address.',
-                'email.unique' => 'This email is already registered. Try new email!',
+                'email.unique' => 'This email is already registered. try new email !',
 
                 'password.required' => 'Password is required.',
                 'password.string' => 'Password must be valid text.',
