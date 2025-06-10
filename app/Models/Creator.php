@@ -4,8 +4,10 @@
 
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Eloquent\SoftDeletes;
+    use Illuminate\Contracts\Auth\MustVerifyEmail;
+    use Illuminate\Foundation\Auth\User as Authenticatable;
 
-    class Creator extends Model
+    class Creator extends Authenticatable implements MustVerifyEmail
     {
         protected $guard = 'creator';
 

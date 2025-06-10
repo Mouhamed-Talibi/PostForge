@@ -10,4 +10,9 @@
         public function index() {
             return view('home');
         }
+
+        // home method 
+        public function home() {
+            return view('home');
+        }
     }

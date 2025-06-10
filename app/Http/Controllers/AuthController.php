@@ -61,10 +61,28 @@
         }
 
         // login
-        public function Login(LoginRequest $request) {
-            // login logic
-            $creadentials = $request->validated();
-            dd($creadentials);
+        public function login(LoginRequest $request){
+            $credentials = $request->validated();
+
+            // Check if user exists
+            $creator = Creator::where('email', $credentials['email'])->first();
+            if (!$creator) {
+                return back()
+                    ->with('error', 'No account found with this email');
+            }
+
+            // Attempt authentication
+            if (Auth::guard('creator')->attempt($credentials)) {
+                $request->session()->regenerate();
+
+                return redirect()
+                    ->intended(route('app.home'))  
+                    ->with('success', 'You have been logged in successfully');
+            }
+
+            return back()
+                ->with('error', 'Email or password is incorrect')
+                ->withInput($request->only('email')); 
         }
 
         // verifyEmail
@@ -101,5 +119,16 @@
                     abort(404);
                 }
             } 
+        }
+
+        // logout 
+        public function logout(Request $request) {
+            Auth::guard('creator')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect()
+                ->route('auth.loginForm')
+                ->with('success', 'You have been logged out successfully');
         }
     }

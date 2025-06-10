@@ -2,6 +2,7 @@
 
     use App\Http\Controllers\AppController;
     use App\Http\Controllers\AuthController;
+    use App\Http\Controllers\PostController;
     use Illuminate\Support\Facades\Route;
     use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
@@ -21,6 +22,9 @@
             ->name('regsitrationForm');
         Route::post('register', [AuthController::class, 'register'])
             ->name('register');
+        // logout
+        Route::post('logout', [AuthController::class, 'logout'])
+            ->name('logout');
         // verify email
         Route::get('verify_email', [AuthController::class, 'verifyEmail'])
             ->name('verifyEmail');
@@ -29,3 +33,12 @@
             ->name('confirmEmail');
     });
 
+    // app routes
+    Route::middleware('auth:creator')->name('app.')->group( function () {
+        // home
+        Route::get('/home', [PostController::class, 'index'])
+        ->name('home');
+        // create post
+        Route::get('/create_post', [PostController::class, 'create'])
+            ->name('createPost');
+    });
