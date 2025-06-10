@@ -3,6 +3,7 @@
     use App\Http\Controllers\AppController;
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\PostController;
+    use GuzzleHttp\Middleware;
     use Illuminate\Support\Facades\Route;
     use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
@@ -33,12 +34,7 @@
             ->name('confirmEmail');
     });
 
-    // app routes
-    Route::middleware('auth:creator')->name('app.')->group( function () {
-        // home
-        Route::get('/home', [PostController::class, 'index'])
-        ->name('home');
-        // create post
-        Route::get('/create_post', [PostController::class, 'create'])
-            ->name('createPost');
-    });
+    // posts routes
+    Route::resource('posts', PostController::class)
+        ->names('posts')
+        ->middleware('auth:creator');

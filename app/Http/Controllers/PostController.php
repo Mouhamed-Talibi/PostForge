@@ -2,8 +2,11 @@
 
     namespace App\Http\Controllers;
 
+    use App\Models\Category;
     use App\Models\Post;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Cache;
+    use Illuminate\Support\Facades\DB;
 
     class PostController extends Controller
     {
@@ -20,7 +23,10 @@
          */
         public function create()
         {
-            return view('posts.create');
+            $categories = Cache::remember('categories', 3600, function () {
+                return Category::orderByDesc('name')->get();
+            });
+            return view('posts.create', compact('categories'));
         }
 
         /**

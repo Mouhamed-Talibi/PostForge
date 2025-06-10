@@ -30,9 +30,9 @@
 
                 {{-- auth links --}}
                 @auth
-                    <li class="nav-item"><a class="nav-link" href="{{ route('app.home') }}">Posts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('posts.index') }}">Posts</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">My Posts</a></li>
-                    <li class="nav-item"><a class="nav-link me-3" href="{{ route('app.createPost')}}">Create Post</a></li>
+                    <li class="nav-item"><a class="nav-link me-3" href="{{ route('posts.create')}}">Create Post</a></li>
                     <li class="nav-item">
                         <!-- Logout Button (triggers modal) -->
                         <button type="button" class="btn btn-danger rounded-5 logout" data-bs-toggle="modal" data-bs-target="#logoutModal">

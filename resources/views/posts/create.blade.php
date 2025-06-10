@@ -16,63 +16,40 @@
                         @csrf
 
                         <div class="mb-3">
-                            <label for="creator_name" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" name="creator_name" id="creator_name" value="{{ old('creator_name') }}">
+                            <label for="post_title" class="form-label"><p class="fw-bold">Post Title</p></label>
+                            <input type="text" class="form-control" name="post_title" id="post_title" value="{{ old('post_title') }}">
                             {{-- error --}}
-                            @error('creator_name')
+                            @error('post_title')
                                 <p class="text-danger fw-bold">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Gender</label><br>
-                            <label><input type="radio" name="gender" value="male" {{ old('gender') == 'male' ? 'checked' : '' }}> Male</label>
-                            <label class="ms-3"><input type="radio" name="gender" value="female" {{ old('gender') == 'female' ? 'checked' : '' }}> Female</label>
+                            <label for="description" class="form-label"><p class="fw-bold">Post Description</p></label>
+                            <textarea name="description" id="" class="form-control" value="Your Post Descripton Here">{{ old('description') }}</textarea>
                             {{-- error --}}
-                            @error('gender')
+                            @error('description')
                                 <p class="text-danger fw-bold">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <label for="age" class="form-label">Age</label>
-                            <input type="number" class="form-control" name="age" id="age" value="{{ old('age') }}">
+                            <label for="category" class="form-label"><p class="fw-bold">Post Category</p></label>
+                            <select name="category" id="" class="form-control">
+                                <option value="">Select your post category</option>
+                                {{-- loop categories --}}
+                                @foreach ($categories as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
                             {{-- error --}}
-                            {{-- error --}}
-                            @error('age')
+                            @error('category')
                                 <p class="text-danger fw-bold">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}">
-                            {{-- error --}}
-                            @error('email')
-                                <p class="text-danger fw-bold">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password" id="password">
-                            {{-- error --}}
-                            @error('password')
-                                <p class="text-danger fw-bold">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="password_confirmation" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" name="password_confirmation" id="password_confirmation">
-                            {{-- error --}}
-                            @error('password_confirmation')
-                                <p class="text-danger fw-bold">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Profile Image (optional)</label>
+                            <label for="image" class="form-label"><p class="fw-bold">Post Image (Optional)</p></label>
                             <input type="file" class="form-control" name="image" id="image" accept="image/*">
                             {{-- error --}}
                             @error('image')
@@ -80,7 +57,7 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100">Register</button>
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Create Post</button>
                     </form>
                 </div>
             </div>

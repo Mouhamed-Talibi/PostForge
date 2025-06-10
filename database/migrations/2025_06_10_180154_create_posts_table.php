@@ -26,10 +26,11 @@ return new class extends Migration
                 ->constrained('categories')
                 ->restrictOnDelete()
                 ->restrictOnUpdate();
-            
+
             $table->enum('status', ['pending', 'accepted', 'rejected'])
                 ->default('pending');
             $table->timestamps();
+            $table->softDeletes();
 
             // index for frequently queried columns
             $table->index('status');

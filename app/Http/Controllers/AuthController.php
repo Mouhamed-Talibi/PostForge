@@ -76,7 +76,7 @@
                 $request->session()->regenerate();
 
                 return redirect()
-                    ->intended(route('app.home'))  
+                    ->intended(route('posts.index'))  
                     ->with('success', 'You have been logged in successfully');
             }
 
