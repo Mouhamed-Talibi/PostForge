@@ -105,7 +105,20 @@
          */
         public function destroy(Post $post)
         {
-            //
+            // checking if post is created by current user
+            if ($post->creator_id != auth('creator')->id()) {
+                return redirect()->back()->with('error', 'You are not authorized to delete this post.');
+            }
+
+            // delete post by creator 
+            try {
+                $post->delete();
+                return redirect()
+                ->route('posts.myposts')
+                ->with('success', 'Your Post deleted successfully.');
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'Failed to delete post. Please try again.');
+            }
         }
 
         // my posts method 
