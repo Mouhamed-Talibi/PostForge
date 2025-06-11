@@ -38,3 +38,8 @@
     Route::resource('posts', PostController::class)
         ->names('posts')
         ->middleware('auth:creator');
+
+    // my posts routes 
+    Route::get('myposts', [PostController::class, 'myPosts'])
+        ->name('posts.myposts')
+        ->middleware('auth:creator');

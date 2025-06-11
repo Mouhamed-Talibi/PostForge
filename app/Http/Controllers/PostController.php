@@ -2,6 +2,7 @@
 
     namespace App\Http\Controllers;
 
+    use App\Http\Requests\PostCreationRequest;
     use App\Models\Category;
     use App\Models\Post;
     use Illuminate\Http\Request;
@@ -32,9 +33,47 @@
         /**
          * Store a newly created resource in storage.
          */
-        public function store(Request $request)
+        public function store(PostCreationRequest $request)
         {
-            //
+            $creatorId = auth('creator')->id();
+
+            // creator pending posts 
+            $pendingPosts = Post::where('creator_id', $creatorId)
+                ->where('status', 'pending')
+                ->count();
+            // allow creating if posts less than 5
+            if ($pendingPosts >= 5) {
+                return redirect()
+                    ->route('posts.myposts')
+                    ->with('error', 
+                    'You have reached the maximum limit of pending posts (5). Please wait for approval before creating new posts.');
+            }
+
+            $validatedFields = $request->validated();
+            // handling image upload
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = date('Ym') . "_" . uniqid() . '.' . $image->getClientOriginalExtension();
+                $imagePath = $image->storeAs('uploads/posts/images', $imageName, 'public');
+                $validatedFields['image'] = $imagePath;
+            }
+
+            // create post 
+            $isCreated = Post::create([
+                'title' => $validatedFields['post_title'],
+                'slug' => str_replace(' ', '-', $validatedFields['post_title']),
+                'description' => $validatedFields['description'],
+                'creator_id' => auth('creator')->id(),
+                'category_id' => $validatedFields['category'],
+                'image' => $validatedFields['image'] ?? null,
+            ]);
+
+            // redirecting to my posts page ( after creating post )
+            if ($isCreated) {
+                return redirect()->route('posts.myposts')->with('success', 'Your Post Is created successfully');
+            } else {
+                return redirect()->back()->with('error', "Failed to create post, Please try Again !");
+            }
         }
 
         /**
@@ -67,5 +106,17 @@
         public function destroy(Post $post)
         {
             //
+        }
+
+        // my posts method 
+        public function myPosts() {
+            $creatorId = auth('creator')->id();
+            $cacheKey = 'creator_posts_' . $creatorId;
+
+            $creatorPosts = Post::where('creator_id', $creatorId)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+            return view('posts.myPosts', compact('creatorPosts'));
         }
     }

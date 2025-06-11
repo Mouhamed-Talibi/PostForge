@@ -31,7 +31,7 @@
                 {{-- auth links --}}
                 @auth
                     <li class="nav-item"><a class="nav-link" href="{{ route('posts.index') }}">Posts</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">My Posts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('posts.myposts') }}">My Posts</a></li>
                     <li class="nav-item"><a class="nav-link me-3" href="{{ route('posts.create')}}">Create Post</a></li>
                     <li class="nav-item">
                         <!-- Logout Button (triggers modal) -->
