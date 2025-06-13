@@ -5,12 +5,15 @@
     use App\Http\Requests\PostCreationRequest;
     use App\Models\Category;
     use App\Models\Post;
+    use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Cache;
     use Illuminate\Support\Facades\DB;
 
     class PostController extends Controller
     {
+        use AuthorizesRequests;
+
         /**
          * Display a listing of the resource.
          */
@@ -28,6 +31,7 @@
          */
         public function create()
         {
+            $this->authorize('create', Post::class);
             $categories = Cache::remember('categories', 3600, function () {
                 return Category::orderByDesc('name')->get();
             });
