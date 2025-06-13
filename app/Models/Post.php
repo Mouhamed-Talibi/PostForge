@@ -19,4 +19,9 @@
             'category_id',
             'image',
         ];
+
+        // category method
+        public function category() {
+            return $this->belongsTo(Category::class);
+        }
     }

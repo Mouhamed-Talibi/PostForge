@@ -215,3 +215,35 @@ body {
     color: var(--primary-blue);
     text-decoration: underline;
 }
+
+/* post page style */
+.post-image-container {
+    height: 350px;
+    overflow: hidden;
+}
+
+.post-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-content {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .post-image-container {
+        height: 250px;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+    
+    h1.card-title {
+        font-size: 1.8rem;
+    }
+}

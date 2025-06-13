@@ -56,6 +56,8 @@
                 $imageName = date('Ym') . "_" . uniqid() . '.' . $image->getClientOriginalExtension();
                 $imagePath = $image->storeAs('uploads/posts/images', $imageName, 'public');
                 $validatedFields['image'] = $imagePath;
+            } else {
+                $validatedFields['image'] = 'uploads/posts/images/posts-default-image.png';
             }
 
             // create post 
@@ -81,7 +83,10 @@
          */
         public function show(Post $post)
         {
-            //
+            $cachedPost = Cache::remember('post_' . $post->id, 3600, function() use ($post) {
+                return Post::with('category')->findOrFail($post->id);
+            });
+            return view('posts.show', compact('cachedPost'));
         }
 
         /**
@@ -89,7 +94,9 @@
          */
         public function edit(Post $post)
         {
-            //
+            $post = Post::with('category')->findOrFail($post->id);
+            $categories = Category::orderByDesc('name')->get();
+            return view('posts.edit', compact(['post', 'categories']));
         }
 
         /**
