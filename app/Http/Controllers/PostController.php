@@ -16,7 +16,9 @@
          */
         public function index()
         {
-            return view('posts.index');
+            $acceptedPosts = Post::where('status', 'accepted')
+                ->paginate(15);
+            return view('posts.index', compact('acceptedPosts'));
         }
 
         /**
@@ -154,14 +156,19 @@
         }
 
         // my posts method 
-        public function myPosts() {
-            $creatorId = auth('creator')->id();
-            $cacheKey = 'creator_posts_' . $creatorId;
+        public function myPosts(){
+            $creator = auth('creator')->user();
+            $cacheKey = 'creator_posts_' . $creator->id;
 
-            $creatorPosts = Post::where('creator_id', $creatorId)
-                        ->orderBy('created_at', 'desc')
-                        ->get();
+            // Using the relationship with eager loading and caching
+            $creatorPosts = Cache::remember($cacheKey, now()->addHours(1), function() use ($creator) {
+                return $creator->posts()
+                            ->with('category') // Eager load category
+                            ->latest() // Same as orderBy('created_at', 'desc')
+                            ->get();
+            });
 
+            Cache::forget($cacheKey);
             return view('posts.myPosts', compact('creatorPosts'));
         }
     }
