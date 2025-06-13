@@ -16,7 +16,9 @@
          */
         public function index()
         {
-            $acceptedPosts = Post::where('status', 'accepted')
+            $acceptedPosts = Post::with(['category', 'creator'])
+                ->where('status', 'accepted')
+                ->latest()
                 ->paginate(15);
             return view('posts.index', compact('acceptedPosts'));
         }

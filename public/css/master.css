@@ -247,3 +247,35 @@ body {
         font-size: 1.8rem;
     }
 }
+
+/* posts page */
+.post-create-btn {
+    border-radius: 20px;
+    background-color: #f0f2f5;
+    padding: 10px 15px;
+    border: none;
+}
+.post-create-btn:hover {
+    background-color: #e4e6e9;
+}
+.post-image {
+    max-height: 500px;
+    overflow: hidden;
+}
+.post-image img {
+    object-fit: cover;
+    width: 100%;
+    height: 90%;
+}
+.like-btn:hover {
+    background-color: #f0f2f5;
+    color: #1877f2;
+}
+.comment-btn:hover {
+    background-color: #f0f2f5;
+    color: #1b1b1b;
+}
+.share-btn:hover {
+    background-color: #f0f2f5;
+    color: #42b72a;
+}

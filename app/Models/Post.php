@@ -24,4 +24,9 @@
         public function category() {
             return $this->belongsTo(Category::class);
         }
+
+        // creator posts
+        public function creator() {
+            return $this->belongsTo(Creator::class);
+        }
     }
