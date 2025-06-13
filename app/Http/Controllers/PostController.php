@@ -102,9 +102,34 @@
         /**
          * Update the specified resource in storage.
          */
-        public function update(Request $request, Post $post)
+        public function update(PostCreationRequest $request, Post $post)
         {
-            //
+            $validatedFields = $request->validated();
+
+            // handling case new image uploaded
+            if($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = date('Ym') . "_" . uniqid() . '.' . $image->getClientOriginalExtension();
+                $imagePath = $image->storeAs('uploads/posts/images', $imageName, 'public');
+                $validatedFields['image'] = $imagePath;
+            }
+
+            // updating the post 
+            $post->update([
+                'title' => $validatedFields['post_title'],
+                'slug' => str_replace(" ", "-",  $validatedFields['post_title']),
+                'description' =>  $validatedFields['description'],
+                'category' =>  $validatedFields['category'],
+                'image' =>  $validatedFields['image'],
+            ]);
+
+            // clearing cache
+            Cache::forget('post_' . $post->id);
+
+            // redirecting with success message 
+            return redirect()
+                ->route('posts.show', $post->id)
+                ->with('success', 'Your Post updated successfully');
         }
 
         /**
