@@ -31,7 +31,7 @@
                 $imagePath = $image->storeAs('uploads/creators_images', $imageName, 'public');
                 $validatedFields['image'] = $imagePath;
             } else {
-                $validatedFields['image'] = 'assets/default-image.png';
+                $validatedFields['image'] = 'uploads/creators_images/profile.png';
             }
 
             // Create creator

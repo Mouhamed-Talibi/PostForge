@@ -283,8 +283,8 @@ body {
 /* creators style */
 .creator-card {
     width: auto;
-    height: 300px;
-    border: 1px solid var(--rich-black);
+    height: 350px;
+    box-shadow: 10px 20px 10px 6px var(--rich-black);
 }
 
 /* creator page style */
@@ -293,7 +293,7 @@ body {
     height: 180px;
     border: 4px solid #fff;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
+}   
 
 .card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;

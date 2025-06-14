@@ -10,11 +10,11 @@
                 {{-- looping creators --}}
                 @foreach($creators as $creator)
                     {{-- creator card --}}
-                    <div class="col-md-6 col-lg-3">
-                        <div class="creator-card rounded-3 shadow p-3">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="creator-card rounded-3 shadow p-3 mt-4">
                             <div class="d-flex justify-content-center">
-                                <div class="creator-image text-center" style="width: 100px; height: 100px;">
-                                    <img src="{{ asset('storage/' . $creator->image )}}" alt="" class="img-fluid rounded-circle">
+                                <div class="creator-image text-center mt-2" style="width: 100px; height: 100px;">
+                                    <img src="{{ asset('storage/' . $creator->image )}}" alt="" class="img-fluid rounded">
                                 </div>
                             </div>
 

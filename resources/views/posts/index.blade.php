@@ -45,8 +45,8 @@
                         <!-- Post Header -->
                         <div class="card-header bg-white d-flex align-items-center">
                             <img src="{{ $post->creator->image ? asset('storage/'.$post->creator->image) : asset('assets/default-image.png') }}" 
-                                class="rounded-circle me-3" 
-                                width="40" 
+                                class="rounded me-3" 
+                                width="50" 
                                 height="40">
                             <div>
                                 <h6 class="mb-0">{{ $post->creator->creator_name }}</h6>
@@ -91,7 +91,7 @@
 
                         <!-- Post Body -->
                         <div class="card-body">
-                            <h3 class="text-dark mb-3 mt-2"><span class="text-primary">{{ Str::substr(Str::upper($post->title), 0, 10) }}</span>{{ Str::substr(Str::lower($post->title), 10) }}</h3>
+                            <h3 class="text-dark text-center mb-3 mt-2">{{ $post->title }}</h3>
                             <p class="card-text">{{ $post->description }}</p>
                             
                             @if($post->image)

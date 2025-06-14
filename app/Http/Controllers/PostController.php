@@ -35,6 +35,8 @@
             $categories = Cache::remember('categories', 3600, function () {
                 return Category::orderByDesc('name')->get();
             });
+
+            Cache::forget('categories');
             return view('posts.create', compact('categories'));
         }
 
