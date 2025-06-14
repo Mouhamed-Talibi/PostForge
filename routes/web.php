@@ -51,6 +51,6 @@
         ->middleware('auth:creator');
 
     // search posts route
-    Route::post('search', [PostController::class, 'search'])
+    Route::post('/posts/search', [PostController::class, 'search'])
         ->name('posts.search')
         ->middleware(['auth:creator', 'verified']);

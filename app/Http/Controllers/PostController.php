@@ -192,12 +192,21 @@
 
         // search posts method
         public function search(PostSearchRequest $request) {
-            $validatedTitle = $request->validated();
-            dd($validatedTitle);
-
+            // authoriz search
             $this->authorize('search', auth('creator')->user());
 
-            $foundedPosts = Post::where('title', 'like', '%' . $request->title . '%');
-            dd($foundedPosts);
+            // find relasted Posts
+            $validatedTitle = $request->validated();
+
+            $relatedPosts = Post::where('title', 'like', '%' . $validatedTitle['title'] . '%')
+                ->paginate(5);
+
+            // check if not empty related posts 
+            if ($relatedPosts->isEmpty()) {
+                return redirect()->back()->with('error', 'No posts found.');
+            } else {
+                return view('posts.search', compact('relatedPosts'))
+                    ->with('success', 'Posts found successfully :)');
+            }
         }
     }

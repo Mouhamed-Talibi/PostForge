@@ -20,7 +20,7 @@
                     @csrf 
 
                     <input class="form-control me-2" type="search" placeholder="Search posts..." aria-label="Search" name="title">
-                    <button class="btn btn-primary me-3" type="submit">Search</button>
+                    <button class="btn btn-primary" type="submit">Search</button>
                     @error('title')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
