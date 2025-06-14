@@ -279,3 +279,10 @@ body {
     background-color: #f0f2f5;
     color: #42b72a;
 }
+
+/* creators style */
+.creator-card {
+    width: auto;
+    height: 300px;
+    border: 1px solid var(--rich-black);
+}
