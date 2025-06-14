@@ -42,7 +42,7 @@
         <hr class="my-5">
         
         <!-- Creator Posts Section -->
-        <h2 class="mb-4 fw-bold">Latest Posts</h2>
+        <h2 class="mb-4 fw-bold">Latest <span class="text-primary">Posts</span></h2>
         
         @if($creatorPosts->isEmpty())
             <div class="alert alert-info text-center py-4">

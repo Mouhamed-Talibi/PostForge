@@ -19,15 +19,6 @@
                 @endif
 
                 <div class="card-body p-4 p-md-5">
-                    <!-- Status Badge -->
-                    <div class="mb-4">
-                        @if($cachedPost->status == 'published')
-                            <span class="badge bg-success">Published</span>
-                        @else
-                            <span class="badge bg-warning text-dark">Pending</span>
-                        @endif
-                    </div>
-
                     <!-- Title -->
                     <h1 class="card-title display-5 fw-bold mb-3">
                         {{ $cachedPost->title }}
