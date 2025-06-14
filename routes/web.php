@@ -46,6 +46,6 @@
         ->middleware('auth:creator');
 
     // creators route
-    Route::get('creators/', [CreatorController::class, 'index'])
-        ->name('creators.creators')
+    Route::resource('creators', CreatorController::class)
+        ->names('creators')
         ->middleware('auth:creator');

@@ -15,8 +15,7 @@ class CreatorController extends Controller
         // get all creators 
         $creators = Creator::where('role', '=', 'creator')
             ->orderBy('id', 'DESC')
-            ->get();
-        // creators view 
+            ->paginate(9); 
         return view('creators.index', compact('creators'));
     }
 
