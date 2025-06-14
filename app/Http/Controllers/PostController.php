@@ -3,6 +3,7 @@
     namespace App\Http\Controllers;
 
     use App\Http\Requests\PostCreationRequest;
+    use App\Http\Requests\PostSearchRequest;
     use App\Models\Category;
     use App\Models\Creator;
     use App\Models\Post;
@@ -153,6 +154,9 @@
          */
         public function destroy(Post $post)
         {
+            // authorize delete
+            $this->authorize('delete', $post);
+
             // checking if post is created by current user
             if ($post->creator_id != auth('creator')->id()) {
                 return redirect()->back()->with('error', 'You are not authorized to delete this post.');
@@ -184,5 +188,16 @@
 
             Cache::forget($cacheKey);
             return view('posts.myPosts', compact('creatorPosts'));
+        }
+
+        // search posts method
+        public function search(PostSearchRequest $request) {
+            $validatedTitle = $request->validated();
+            dd($validatedTitle);
+
+            $this->authorize('search', auth('creator')->user());
+
+            $foundedPosts = Post::where('title', 'like', '%' . $request->title . '%');
+            dd($foundedPosts);
         }
     }
