@@ -28,13 +28,26 @@
         /**
          * Determine whether the user can create models.
          */
-        public function create(Creator $creator): bool
+        public function create(?Creator $creator): bool
         {
-            if(auth('creator')->check()) {
-                return true;
-            }
+            // Handle unauthenticated users (though middleware should prevent this)
+            if (!$creator) return false;
+            
+            // Debugging (check logs/storage/logs/laravel.log)
+            \Log::debug('Policy Check', [
+                'creator_id' => $creator->id,
+                'verified' => $creator->email_verified_at
+            ]);
 
-            return false;
+            return $creator->email_verified_at !== null;
+        }
+
+        /**
+         * Determine whether the user can edit the model.
+         */
+        public function edit(Creator $creator, Post $post): bool
+        {
+            return $creator->id === $post->creator_id;
         }
 
         /**

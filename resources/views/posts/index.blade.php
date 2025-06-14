@@ -93,15 +93,15 @@
                         <div class="card-body">
                             <h3 class="text-dark text-center mb-3 mt-2">{{ $post->title }}</h3>
                             <p class="card-text">{{ $post->description }}</p>
-                            
+
                             @if($post->image)
-                            <div class="post-image mb-3">
-                                <img src="{{ asset('storage/'.$post->image) }}" 
-                                    class="img-fluid rounded-4" 
-                                    alt="{{ $post->title }}">
-                            </div>
+                                <div class="post-image mb-3">
+                                    <img src="{{ asset('storage/'.$post->image) }}" 
+                                        class="img-fluid rounded-4" 
+                                        alt="{{ $post->title }}">
+                                </div>
                             @endif
-                            
+
                             <div class="d-flex justify-content-between text-muted mb-3">
                                 <div>
                                     <span class="me-3"><i class="fas fa-thumbs-up text-primary"></i> {{ $post->likes_count ?? 0 }}</span>

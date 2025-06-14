@@ -23,7 +23,7 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">                
                 {{-- guest links --}}
                 @guest
-                    <li class="nav-item"><a class="nav-link" href="#">Posts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Posts</a></li>
                     <li class="nav-item"><a class="nav-link login" href="{{ route('auth.loginForm') }}">Login</a></li>
                     <li class="nav-item"><a class="nav-link register" href="{{ route('auth.regsitrationForm') }}">Register</a></li>
                 @endguest

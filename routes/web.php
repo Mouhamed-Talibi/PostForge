@@ -38,7 +38,7 @@
     // posts routes
     Route::resource('posts', PostController::class)
         ->names('posts')
-        ->middleware('auth:creator');
+        ->middleware(['auth:creator', 'verified']);
 
     // my posts routes 
     Route::get('myposts', [PostController::class, 'myPosts'])

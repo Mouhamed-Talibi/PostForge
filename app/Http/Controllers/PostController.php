@@ -4,6 +4,7 @@
 
     use App\Http\Requests\PostCreationRequest;
     use App\Models\Category;
+    use App\Models\Creator;
     use App\Models\Post;
     use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
     use Illuminate\Http\Request;
@@ -31,7 +32,7 @@
          */
         public function create()
         {
-            $this->authorize('create', Post::class);
+            // getting categories
             $categories = Cache::remember('categories', 3600, function () {
                 return Category::orderByDesc('name')->get();
             });
@@ -45,6 +46,7 @@
          */
         public function store(PostCreationRequest $request)
         {
+            // getting creator id
             $creatorId = auth('creator')->id();
 
             // creator pending posts 
@@ -104,6 +106,8 @@
          */
         public function edit(Post $post)
         {
+            // authorize edit
+            $this->authorize('edit', $post);
             $post = Post::with('category')->findOrFail($post->id);
             $categories = Category::orderByDesc('name')->get();
             return view('posts.edit', compact(['post', 'categories']));
@@ -114,6 +118,8 @@
          */
         public function update(PostCreationRequest $request, Post $post)
         {
+            // authorize update
+            $this->authorize('update', $post);
             $validatedFields = $request->validated();
 
             // handling case new image uploaded
