@@ -28,6 +28,7 @@
                 'email' => 'required|email|unique:creators,email',
                 'password' => 'required|string|confirmed|min:8|regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).+$/',
                 'image' => 'nullable|image|max:2048',
+                'bio' => 'nullable|string|max:1000|regex:/^[\pL\pN\pM\s\-\'\.,;!?()"]+$/u',
             ];
         }
 
@@ -60,6 +61,10 @@
 
                 'image.image' => 'Please upload a valid image file.',
                 'image.max' => 'Image size must not exceed 2MB.',
+
+                'bio.string' => 'The bio must be a text (Chars).',
+                'bio.max' => 'The bio cannot exceed 1000 characters.',
+                'bio.regex' => 'The bio contains invalid characters. Only letters, numbers, spaces, and basic punctuation are allowed.',
             ];
         }
 

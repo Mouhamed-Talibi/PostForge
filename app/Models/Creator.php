@@ -25,6 +25,7 @@
             'role',
             'image',
             'status',
+            'bio',
         ];
 
         // posts relashioships 

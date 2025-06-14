@@ -2,6 +2,7 @@
 
     use App\Http\Controllers\AppController;
     use App\Http\Controllers\AuthController;
+    use App\Http\Controllers\CreatorController;
     use App\Http\Controllers\PostController;
     use GuzzleHttp\Middleware;
     use Illuminate\Support\Facades\Route;
@@ -42,4 +43,9 @@
     // my posts routes 
     Route::get('myposts', [PostController::class, 'myPosts'])
         ->name('posts.myposts')
+        ->middleware('auth:creator');
+
+    // creators route
+    Route::get('creators/', [CreatorController::class, 'index'])
+        ->name('creators.creators')
         ->middleware('auth:creator');

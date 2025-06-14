@@ -35,6 +35,15 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="bio" class="form-label">Bio <small>(Optional)</small></label>
+                        <textarea name="bio" id="" value="{{ old('bio')}}" class="form-control"></textarea>
+                        {{-- error --}}
+                        @error('bio')
+                            <p class="text-danger fw-bold">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
                         <label for="age" class="form-label">Age</label>
                         <input type="number" class="form-control" name="age" id="age" value="{{ old('age') }}">
                         {{-- error --}}

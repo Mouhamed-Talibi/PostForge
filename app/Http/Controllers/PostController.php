@@ -22,7 +22,7 @@
             $acceptedPosts = Post::with(['category', 'creator'])
                 ->where('status', 'accepted')
                 ->latest()
-                ->paginate(15);
+                ->paginate(10);
             return view('posts.index', compact('acceptedPosts'));
         }
 

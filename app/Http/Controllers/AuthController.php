@@ -42,6 +42,7 @@
                 'email' => $validatedFields['email'],
                 'password' => $validatedFields['password'],
                 'image' => $validatedFields['image'],
+                'bio' => $validatedFields['bio'],
             ]);
             $isSent = Mail::to($creator->email)->send(new EmailConfirmation($creator));
 
