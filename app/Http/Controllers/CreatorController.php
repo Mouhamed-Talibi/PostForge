@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Creator;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CreatorController extends Controller
@@ -38,9 +39,15 @@ class CreatorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $id)
     {
-        //
+        $creator = Creator::findOrFail($id);
+        // get creator posts
+        $creatorPosts = Post::where('creator_id',$id)
+            ->where('status', '=', 'accepted')
+            ->get();
+        // creator page
+        return view('creators.show', compact(['creator', 'creatorPosts']));
     }
 
     /**
