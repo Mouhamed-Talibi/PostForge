@@ -33,6 +33,9 @@
          */
         public function create()
         {
+            // authorize creation 
+            $this->authorize('create', auth('creator')->user());
+
             // getting categories
             $categories = Cache::remember('categories', 3600, function () {
                 return Category::orderByDesc('name')->get();
@@ -47,6 +50,9 @@
          */
         public function store(PostCreationRequest $request)
         {
+            // authorize creation
+            $this->authorize('create', auth('creator')->user());
+
             // getting creator id
             $creatorId = auth('creator')->id();
 

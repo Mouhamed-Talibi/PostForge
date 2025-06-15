@@ -27,9 +27,9 @@ class CreatorPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(Creator $creator): bool
     {
-        return false;
+        return $creator->email_verified_at != null;
     }
 
     /**
