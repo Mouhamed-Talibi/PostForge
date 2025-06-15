@@ -42,11 +42,24 @@
                     <li class="nav-item"><a class="nav-link me-2" href="{{ route('creators.index')}}">Creators</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('posts.myposts') }}">My Posts</a></li>
                     <li class="nav-item"><a class="nav-link me-3" href="{{ route('posts.create')}}">Create Post</a></li>
-                    <li class="nav-item">
-                        <!-- Logout Button (triggers modal) -->
-                        <button type="button" class="btn btn-danger rounded-5 logout" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                            Logout <i class="fa-solid fa-right-from-bracket"></i>
-                        </button>
+                    <li class="nav-item dropdown">
+                        <!-- Profile Image Dropdown -->
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('storage/' . auth('creator')->user()->image) }}" 
+                                class="rounded-circle" 
+                                width="40" 
+                                height="40" 
+                                alt="Profile Image">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{{ route('creators.show', auth('creator')->id()) }}"><i class="fas fa-user me-2"></i> Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                </button>
+                            </li>
+                        </ul>
                     </li>
 
                     <!-- Logout Modal -->
