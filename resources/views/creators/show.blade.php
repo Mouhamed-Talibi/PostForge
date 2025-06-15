@@ -37,10 +37,17 @@
                     </div>
                 </div>
             </div>
+
+            {{-- check if logged user is creator --}}
+            @if (auth('creator')->id() === $creator->id)
+                <div class="links text-center">
+                    <a href="{{ route('creators.edit', $creator->id )}}" class="btn bg-dark text-light text-decoration-none">Manage Personal Data</a>
+                </div>
+            @endif
         </div>
-        
+
         <hr class="my-5">
-        
+
         <!-- Creator Posts Section -->
         <h2 class="mb-4 fw-bold">Latest <span class="text-primary">Posts</span></h2>
         

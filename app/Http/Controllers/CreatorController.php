@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateCreatorEmailRequest;
 use App\Models\Creator;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -57,7 +58,9 @@ class CreatorController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $creator = Creator::findOrFail($id);
+        $totalPosts = Post::where('creator_id', $id)->count();
+        return view('creators.edit', compact(['creator', 'totalPosts']));
     }
 
     /**
@@ -74,5 +77,16 @@ class CreatorController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /**
+     * Update creator email.
+     */
+    public function updateEmail(UpdateCreatorEmailRequest $request, Creator $creator) {
+        $validated = $request->validated();
+        $creator->update(['email' => $validated['email']]);
+        
+        return redirect()->back()
+            ->with('success', 'Email updated successfully!');
     }
 }

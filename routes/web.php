@@ -50,6 +50,13 @@
         ->names('creators')
         ->middleware('auth:creator');
 
+    // creator personal data ( update )
+    Route::middleware(['auth:creator', 'verified'])->name('creator.')->group(function () {
+        // email update
+        Route::post('creator/{creator}/email/update', [CreatorController::class, 'updateEmail'])
+            ->name('update_email');
+    });
+
     // search posts route
     Route::post('/posts/search', [PostController::class, 'search'])
         ->name('posts.search')
