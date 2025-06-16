@@ -55,6 +55,12 @@
         // email update
         Route::post('creator/{creator}/email/update', [CreatorController::class, 'updateEmail'])
             ->name('update_email');
+        // update bio
+        Route::post('creator/{creator}/bio/update', [CreatorController::class, 'updateBio'])
+            ->name('update_bio');
+        // update name
+        Route::post('creator/{creator}/name/update', [CreatorController::class, 'updateName'])
+            ->name('update_name');
     });
 
     // search posts route

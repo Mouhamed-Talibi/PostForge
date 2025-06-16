@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-    My Personal Data
+    {{ $creator->creator_name }}
 @endsection
 
 @section('content')
@@ -106,7 +106,7 @@
                     <h5 class="modal-title">Change Email Address</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('creator.update_email', $creator)}}" method="POST">
+                <form action="{{ route('creator.update_email', $creator)}}" method="POST" onsubmit="return true">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
@@ -116,6 +116,9 @@
                         <div class="mb-3">
                             <label for="new_email" class="form-label fw-bold badge bg-info">New Email Address</label>
                             <input type="email" class="form-control" id="new_email" name="email" required>
+                            @error('email')
+                                <p class="text-danger fw-bold">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -135,7 +138,7 @@
                     <h5 class="modal-title">Change Bio</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="" method="POST">
+                <form action="{{ route('creator.update_bio', $creator)}}" method="POST" onsubmit="return true">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
@@ -143,8 +146,8 @@
                             <textarea name="bio" id="" class="form-control" readonly>{{ $creator->bio }}</textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="new_email" class="form-label fw-bold badge bg-info">New Bio</label>
-                            <textarea name="new_bio" id="" class="form-control"></textarea>
+                            <label for="new_bio" class="form-label fw-bold badge bg-info">New Bio</label>
+                            <textarea name="bio" id="" class="form-control" id="new_bio"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -164,7 +167,7 @@
                     <h5 class="modal-title">Change Display Name</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="" method="POST">
+                <form action="{{ route('creator.update_name', $creator) }}" method="POST" onsubmit="return true">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">

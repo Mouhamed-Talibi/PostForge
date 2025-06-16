@@ -13,9 +13,4 @@
                 ->paginate(10);
             return view('home', compact('acceptedPosts'));
         }
-
-        // home method 
-        public function home() {
-            return view('home');
-        }
     }

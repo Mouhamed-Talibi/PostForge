@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateCreatorBioRequest;
 use App\Http\Requests\UpdateCreatorEmailRequest;
+use App\Http\Requests\UpdateCreatorNameRequest;
 use App\Models\Creator;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -85,8 +87,30 @@ class CreatorController extends Controller
     public function updateEmail(UpdateCreatorEmailRequest $request, Creator $creator) {
         $validated = $request->validated();
         $creator->update(['email' => $validated['email']]);
-        
+
         return redirect()->back()
             ->with('success', 'Email updated successfully!');
+    }
+
+    /**
+     * Update creator bio.
+     */
+    public function updateBio(UpdateCreatorBioRequest $request, Creator $creator) {
+        $validated = $request->validated();
+        $creator->update(['bio' => $validated['bio']]);
+
+        return redirect()->back()
+            ->with('success', 'Your Bio updated successfully!');
+    }
+
+    /**
+     * Update creator name.
+     */
+    public function updateName(UpdateCreatorNameRequest $request, Creator $creator) {
+        $validated = $request->validated();
+        $creator->update(['creator_name' => $validated['creator_name']]);
+
+        return redirect()->back()
+            ->with('success', 'Your Name updated successfully!');
     }
 }
