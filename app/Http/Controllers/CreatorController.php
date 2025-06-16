@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateCreatorAgeRequest;
 use App\Http\Requests\UpdateCreatorBioRequest;
 use App\Http\Requests\UpdateCreatorEmailRequest;
 use App\Http\Requests\UpdateCreatorNameRequest;
@@ -112,5 +113,16 @@ class CreatorController extends Controller
 
         return redirect()->back()
             ->with('success', 'Your Name updated successfully!');
+    }
+
+    /**
+     * Update creator age.
+     */
+    public function updateAge(UpdateCreatorAgeRequest $request, Creator $creator) {
+        $validated = $request->validated();
+        $creator->update(['age' => $validated['age']]);
+
+        return redirect()->back()
+            ->with('success', 'Your Age updated successfully!');
     }
 }

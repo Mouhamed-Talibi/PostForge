@@ -148,6 +148,10 @@
                         <div class="mb-3">
                             <label for="new_bio" class="form-label fw-bold badge bg-info">New Bio</label>
                             <textarea name="bio" id="" class="form-control" id="new_bio"></textarea>
+                            {{-- bio error --}}
+                            @error('bio')
+                                <p class="text-danger fw-bold">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -173,6 +177,10 @@
                         <div class="mb-3">
                             <label for="creator_name" class="form-label fw-bold badge bg-info">New Display Name</label>
                             <input type="text" class="form-control" id="creator_name" name="creator_name" value="{{ $creator->creator_name }}" required>
+                            {{-- creator_name error --}}
+                            @error('creator_name')
+                                <p class="text-danger fw-bold">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -192,12 +200,16 @@
                     <h5 class="modal-title">Update Age</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="" method="POST">
+                <form action="{{ route('creator.update_age', $creator) }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="age" class="form-label fw-bold badge bg-info">Your Age</label>
-                            <input type="number" class="form-control" id="age" name="age" value="{{ $creator->age }}" min="13" max="120" required>
+                            <input type="number" class="form-control" id="age" name="age" value="{{ $creator->age }}" min="13">
+                            {{-- age error --}}
+                            @error('age')
+                                <p class="text-danger fw-bold">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">

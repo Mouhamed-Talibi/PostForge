@@ -61,6 +61,9 @@
         // update name
         Route::post('creator/{creator}/name/update', [CreatorController::class, 'updateName'])
             ->name('update_name');
+        // update age
+        Route::post('creator/{creator}/age/update', [CreatorController::class, 'updateAge'])
+            ->name('update_age');
     });
 
     // search posts route
