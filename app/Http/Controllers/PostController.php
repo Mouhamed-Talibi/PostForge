@@ -19,12 +19,13 @@
         /**
          * Display a listing of the resource.
          */
-        public function index()
-        {
-            $acceptedPosts = Post::with(['category', 'creator'])
+        public function index(){
+            $acceptedPosts = Post::with(['category', 'creator', 'likers'])
+                ->withCount('likers')
                 ->where('status', 'accepted')
                 ->latest()
                 ->paginate(10);
+            
             return view('posts.index', compact('acceptedPosts'));
         }
 
@@ -214,5 +215,42 @@
                 return view('posts.search', compact('relatedPosts'))
                     ->with('success', 'Posts found successfully :)');
             }
+        }
+
+        // like post
+        public function like(Post $post){
+            $creator = auth('creator')->user();
+            
+            // Check if already liked
+            if ($creator->likedPosts()->where('post_id', $post->id)->exists()) {
+                return response()->json([
+                    'message' => 'Already liked',
+                    'likes_count' => $post->likes_count
+                ], 422);
+            }
+
+            // Add like
+            $creator->likedPosts()->attach($post->id, [
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+            
+            return response()->json([
+                'message' => 'Post liked',
+                'likes_count' => $post->fresh()->likes_count
+            ]);
+        }
+
+        // unlike post
+        public function unlike(Post $post){
+            $creator = auth('creator')->user();
+            
+            // Remove like
+            $creator->likedPosts()->detach($post->id);
+            
+            return response()->json([
+                'message' => 'Post unliked',
+                'likes_count' => $post->fresh()->likes_count
+            ]);
         }
     }

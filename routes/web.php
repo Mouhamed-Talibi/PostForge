@@ -70,3 +70,13 @@
     Route::post('/posts/search', [PostController::class, 'search'])
         ->name('posts.search')
         ->middleware(['auth:creator', 'verified']);
+
+    // posts likes routes 
+    Route::middleware(['auth:creator', 'verified'])->name('posts.')->group(function(){
+        // like post
+        Route::post('/posts/{post}/like', [PostController::class, 'like'])
+            ->name('like');
+        // unlike post
+        Route::delete('/posts/{post}/unlike', [PostController::class, 'unlike'])
+            ->name('unlike');
+    });

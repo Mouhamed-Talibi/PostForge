@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {{-- csrf-token --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- fav icon --}}
     <link rel="icon" href="{{ asset('assets/logo.png') }}" type="image/png">
+
 
     {{-- title --}}
     <title>
@@ -47,11 +51,14 @@
 
     @stack('scripts')
 
+
     {{-- bootstrap js --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
     {{-- loader js --}}
     <script src="{{ asset('js/loader.js') }}"></script>
     {{-- offcanvas close js --}}
     <script src="{{ asset('js/offcanvas_close.js') }}"></script>
+    {{-- likes js --}}
+    <script src="{{ asset('js/likes.js') }}"></script>
 </body>
 </html>

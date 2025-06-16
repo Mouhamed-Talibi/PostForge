@@ -104,7 +104,9 @@
 
                             <div class="d-flex justify-content-between text-muted mb-3">
                                 <div>
-                                    <span class="me-3"><i class="fas fa-thumbs-up text-primary"></i> {{ $post->likes_count ?? 0 }}</span>
+                                    <span class="me-3" data-post-likes="{{ $post->id }}">
+                                        <i class="fas fa-thumbs-up text-primary"></i> {{ $post->likers_count ?? 0 }}
+                                    </span>
                                     <span><i class="fas fa-comment"></i> {{ $post->comments_count ?? 0 }}</span>
                                 </div>
                                 <div>
@@ -116,8 +118,15 @@
                         <!-- Post Footer (Actions) -->
                         <div class="card-footer bg-white">
                             <div class="d-flex justify-content-between">
-                                <button class="btn btn-sm btn-outline-secondary flex-grow-1 mx-1 like-btn">
-                                    <i class="fas fa-thumbs-up me-2"></i> Like
+                                {{-- like button --}}
+                                <button class="btn btn-sm flex-grow-1 mx-1 like-btn 
+                                    {{ auth('creator')->check() && $post->likers->contains(auth('creator')->id()) ? 'btn-primary' : 'btn-outline-secondary' }}" 
+                                    data-post-id="{{ $post->id }}">
+                                    
+                                    <i class="fas fa-thumbs-up me-2"></i>
+                                    <span class="like-text">
+                                        {{ auth('creator')->check() && $post->likers->contains(auth('creator')->id()) ? 'Liked' : 'Like' }}
+                                    </span>
                                 </button>
                                 <button class="btn btn-sm btn-outline-secondary flex-grow-1 mx-1 comment-btn">
                                     <i class="fas fa-comment me-2"></i> Comment

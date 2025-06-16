@@ -33,4 +33,9 @@
         {
             return $this->hasMany(Post::class);
         }
+
+        // likes relashioships
+        public function likedPosts() {
+            return $this->belongsToMany(Post::class, 'likes');
+        }
     }

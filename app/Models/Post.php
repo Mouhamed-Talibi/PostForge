@@ -29,4 +29,14 @@
         public function creator() {
             return $this->belongsTo(Creator::class);
         }
+
+        // likers 
+        public function likers() {
+            return $this->belongsToMany(Creator::class, 'likes', 'post_id', 'creator_id');
+        }
+
+        // get likers
+        public function getLikersCount() {
+            return $this->likers()->count();
+        }
     }
