@@ -46,17 +46,16 @@
                         </div>
 
                         {{-- comments --}}
-                        <div class="comments mt-3">
-                            <h3>Comments</h3>
+                        <div class="comments mt-4">
+                            <h3 class="mb-3">Comments</h3>
                             <hr class="w-25 text-primary">
 
                             {{-- Comment form --}}
-                            <form action="{{ route('comments.store', $post) }}" method="POST">
+                            <form action="{{ route('comments.store', $post) }}" method="POST" class="mb-4">
                                 @csrf
-
-                                <div class="mt-3 w-50">
+                                <div class="w-100 w-lg-50">
                                     <div class="form-group mb-2">
-                                        <input type="text" name="content" id="" value="{{ old('content')}}" class="form-control" placeholder="Write your comment here..." required>
+                                        <input type="text" name="content" value="{{ old('content') }}" class="form-control" placeholder="Write your comment here..." required>
                                         @error('content')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -66,22 +65,30 @@
                                 </div>
                             </form>
 
-                            {{-- available comments --}}
-                            <div class="creators-comments w-50">
+                            {{-- Available comments --}}
+                            <div class="creators-comments w-100 w-lg-50">
                                 @if ($post->comments->count() == 0)
-                                    <p class="text-secondary mt-3">There No available comments yet. be the first one who share his thoughts..</p>
+                                    <p class="text-secondary">There are no comments yet. Be the first to share your thoughts.</p>
                                 @endif
 
-                                {{-- displaying comments --}}
+                                {{-- Displaying comments --}}
                                 @foreach ($post->comments as $comment)
-                                    <div class="comment p-2 mt-2">
-                                        <img src="{{ asset('storage/' . $comment->creator->image )}}" style="height: 40px; width:40px" alt="" class="img-fluid rounded-circle">
-                                            <h5 class="text-dark-50 d-inline mx-2">{{ $comment->creator->creator_name }}</h5>
-                                        <small class="text-seconary d-block mx-5">{{  $comment->content }}</small>
+                                    <div class="comment d-flex align-items-start gap-2 p-3 mb-2 bg-light rounded shadow-sm">
+                                        <img src="{{ asset('storage/' . $comment->creator->image) }}" 
+                                            alt="creator photo" 
+                                            style="height: 40px; width: 40px; object-fit: cover;" 
+                                            class="rounded-circle">
+
+                                        <div>
+                                            <h6 class="mb-1 text-dark">{{ $comment->creator->creator_name }}</h6>
+                                            <p class="mb-1 text-muted">{{ $comment->content }}</p>
+                                            <small class="text-secondary">{{ $comment->created_at->diffForHumans() }}</small>
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

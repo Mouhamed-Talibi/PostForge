@@ -18,7 +18,8 @@
                                 <img src="{{ auth('creator')->user()->image ? asset('storage/'.auth('creator')->user()->image) : asset('images/default-avatar.png') }}" 
                                     class="rounded-circle me-3" 
                                     width="50" 
-                                    height="50">
+                                    height="50"
+                                    style="object-fit: cover;">
                                 <button class="btn btn-light flex-grow-1 text-start post-create-btn" 
                                         onclick="window.location.href='{{ route('posts.create') }}'">
                                     What's on your mind?
@@ -45,9 +46,10 @@
                         <!-- Post Header -->
                         <div class="card-header bg-white d-flex align-items-center">
                             <img src="{{ $post->creator->image ? asset('storage/'.$post->creator->image) : asset('assets/default-image.png') }}" 
-                                class="rounded me-3" 
+                                class="rounded-circle me-3" 
                                 width="50" 
-                                height="40">
+                                style="object-fit: cover;"
+                                height="50">
                             <div>
                                 <h6 class="mb-0">{{ $post->creator->creator_name }}</h6>
                                 <small class="text-muted">{{ $post->created_at->diffForHumans() }}</small>
@@ -107,7 +109,7 @@
                                     <span class="me-3" data-post-likes="{{ $post->id }}">
                                         <i class="fas fa-thumbs-up text-primary"></i> {{ $post->likers_count ?? 0 }}
                                     </span>
-                                    <span><i class="fas fa-comment"></i> {{ $post->comments_count ?? 0 }}</span>
+                                    <span><i class="fas fa-comment"></i> {{ $post->comments->count() ?? 0 }}</span>
                                 </div>
                                 <div>
                                     <span class="badge bg-primary">{{ $post->category->name }}</span>

@@ -14,10 +14,12 @@
         <div class="col-lg-4 mb-4">
             <h3 class="mb-4">Quick Links</h3>
             <ul class="list-unstyled">
-            <li><a href="#" class="footer-link">Home</a></li>
-            <li><a href="#" class="footer-link">Posts</a></li>
-            <li><a href="#" class="footer-link">Login</a></li>
-            <li><a href="#" class="footer-link">Register</a></li>
+                @auth
+                    <li><a href="{{ route('home')}}" class="footer-link">Home</a></li>
+                    <li><a href="{{ route('posts.index')}}" class="footer-link">Posts</a></li>
+                @endauth
+            <li><a href="{{ route('auth.login')}}" class="footer-link">Login</a></li>
+            <li><a href="{{ route('auth.register')}}" class="footer-link">Register</a></li>
             </ul>
         </div>
 

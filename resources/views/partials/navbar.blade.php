@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg custom-navbar px-4 py-2">
     <div class="container-fluid">
         <!-- Logo -->
-        <a class="navbar-brand text-white fw-bold" href="">
+        <a class="navbar-brand text-white fw-bold" href="{{ route('home') }}">
             <img src="{{ asset('assets/logo.png') }}" alt="" class="img-fluid">
         </a>
 
@@ -48,6 +48,7 @@
                                 class="rounded-circle" 
                                 width="40" 
                                 height="40" 
+                                style="object-fit: cover;"
                                 alt="Profile Image">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">

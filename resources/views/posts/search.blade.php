@@ -20,9 +20,10 @@
                         <!-- Post Header -->
                         <div class="card-header bg-white d-flex align-items-center">
                             <img src="{{ $post->creator->image ? asset('storage/'.$post->creator->image) : asset('assets/default-image.png') }}" 
-                                class="rounded me-3" 
+                                class="rounded-circle me-3" 
                                 width="50" 
-                                height="40">
+                                style="object-fit:cover;"
+                                height="50">
                             <div>
                                 <h6 class="mb-0">{{ $post->creator->creator_name }}</h6>
                                 <small class="text-muted">{{ $post->created_at->diffForHumans() }}</small>
@@ -79,8 +80,8 @@
 
                             <div class="d-flex justify-content-between text-muted mb-3">
                                 <div>
-                                    <span class="me-3"><i class="fas fa-thumbs-up text-primary"></i> {{ $post->likes_count ?? 0 }}</span>
-                                    <span><i class="fas fa-comment"></i> {{ $post->comments_count ?? 0 }}</span>
+                                    <span class="me-3"><i class="fas fa-thumbs-up text-primary"></i> {{ $post->likers->count() ?? 0 }}</span>
+                                    <span><i class="fas fa-comment"></i> {{ $post->comments->count() ?? 0 }}</span>
                                 </div>
                                 <div>
                                     <span class="badge bg-primary">{{ $post->category->name }}</span>
@@ -91,12 +92,20 @@
                         <!-- Post Footer (Actions) -->
                         <div class="card-footer bg-white">
                             <div class="d-flex justify-content-between">
-                                <button class="btn btn-sm btn-outline-secondary flex-grow-1 mx-1 like-btn">
-                                    <i class="fas fa-thumbs-up me-2"></i> Like
+                                {{-- like button --}}
+                                <button class="btn btn-sm flex-grow-1 mx-1 like-btn 
+                                    {{ auth('creator')->check() && $post->likers->contains(auth('creator')->id()) ? 'btn-primary' : 'btn-outline-secondary' }}" 
+                                    data-post-id="{{ $post->id }}">
+                                    
+                                    <i class="fas fa-thumbs-up me-2"></i>
+                                    <span class="like-text">
+                                        {{ auth('creator')->check() && $post->likers->contains(auth('creator')->id()) ? 'Liked' : 'Like' }}
+                                    </span>
                                 </button>
-                                <button class="btn btn-sm btn-outline-secondary flex-grow-1 mx-1 comment-btn">
+                                {{-- comment button --}}
+                                <a href="{{ route('comments.view', $post) }}" class="btn btn-sm btn-outline-secondary flex-grow-1 mx-1 comment-btn">
                                     <i class="fas fa-comment me-2"></i> Comment
-                                </button>
+                                </a>
                                 <button class="btn btn-sm btn-outline-secondary flex-grow-1 mx-1 share-btn">
                                     <i class="fas fa-share me-2"></i> Share
                                 </button>
