@@ -104,7 +104,7 @@
 
                             <div class="d-flex justify-content-between text-muted mb-3">
                                 <div>
-                                    <span class="me-3"><i class="fas fa-thumbs-up text-primary"></i> {{ $post->likes_count ?? 0 }}</span>
+                                    <span class="me-3"><i class="fas fa-thumbs-up text-primary"></i> {{ $post->likers_count ?? 0 }}</span>
                                     <span><i class="fas fa-comment"></i> {{ $post->comments_count ?? 0 }}</span>
                                 </div>
                                 <div>

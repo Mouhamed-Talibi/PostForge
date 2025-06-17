@@ -25,7 +25,7 @@
                 ->where('status', 'accepted')
                 ->latest()
                 ->paginate(10);
-            
+            // view page
             return view('posts.index', compact('acceptedPosts'));
         }
 

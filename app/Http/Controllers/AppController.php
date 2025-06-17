@@ -9,7 +9,10 @@
     {
         // index method 
         public function index() {
-            $acceptedPosts = Post::where('status', '=', 'accepted')
+            $acceptedPosts = Post::with(['category', 'creator', 'likers'])
+                ->withCount('likers')
+                ->where('status', 'accepted')
+                ->latest()
                 ->paginate(10);
             return view('home', compact('acceptedPosts'));
         }
