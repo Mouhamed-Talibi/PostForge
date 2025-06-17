@@ -253,4 +253,10 @@
                 'likes_count' => $post->fresh()->likes_count
             ]);
         }
+
+        // Comments View page 
+        public function commentsView(Post $post) {
+            $post = Post::with('comments.creator')->findOrFail($post->id);
+            return view('posts.comments', compact('post'));
+        }
     }

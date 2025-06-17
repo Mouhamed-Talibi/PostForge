@@ -128,9 +128,10 @@
                                         {{ auth('creator')->check() && $post->likers->contains(auth('creator')->id()) ? 'Liked' : 'Like' }}
                                     </span>
                                 </button>
-                                <button class="btn btn-sm btn-outline-secondary flex-grow-1 mx-1 comment-btn">
+                                {{-- comment button --}}
+                                <a href="{{ route('comments.view', $post) }}" class="btn btn-sm btn-outline-secondary flex-grow-1 mx-1 comment-btn">
                                     <i class="fas fa-comment me-2"></i> Comment
-                                </button>
+                                </a>
                                 <button class="btn btn-sm btn-outline-secondary flex-grow-1 mx-1 share-btn">
                                     <i class="fas fa-share me-2"></i> Share
                                 </button>

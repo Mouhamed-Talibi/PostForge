@@ -2,6 +2,7 @@
 
     use App\Http\Controllers\AppController;
     use App\Http\Controllers\AuthController;
+    use App\Http\Controllers\CommentController;
     use App\Http\Controllers\CreatorController;
     use App\Http\Controllers\PostController;
     use GuzzleHttp\Middleware;
@@ -79,4 +80,14 @@
         // unlike post
         Route::delete('/posts/{post}/unlike', [PostController::class, 'unlike'])
             ->name('unlike');
+    });
+
+    // comments routes
+    Route::middleware(['auth:creator', 'verified'])->name('comments.')->group(function() {
+        // comment view page
+        Route::get('/posts/{post}/comments', [PostController::class, 'commentsView'])
+            ->name('view');
+        // store comment
+        Route::post('/posts/{post}/comment', [CommentController::class, 'store'])
+            ->name('store');
     });

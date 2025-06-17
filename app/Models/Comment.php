@@ -9,7 +9,6 @@
         // fillables 
         protected $fillable = [
             'creator_id', 
-            'post_id', 
             'content'
         ];
 
