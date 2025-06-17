@@ -38,4 +38,9 @@
         public function likedPosts() {
             return $this->belongsToMany(Post::class, 'likes');
         }
+
+        // comments 
+        public function comments() {
+            return $this->hasMany(Comment::class);
+        }
     }

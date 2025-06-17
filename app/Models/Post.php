@@ -39,4 +39,10 @@
         public function getLikersCount() {
             return $this->likers()->count();
         }
+
+        // comments 
+        public function comments() {
+            return $this->hasMany(Comment::class)
+                ->latest();
+        }
     }
