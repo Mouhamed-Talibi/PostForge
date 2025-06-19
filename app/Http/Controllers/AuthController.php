@@ -74,14 +74,15 @@
                     ->with('error', 'No account found with this email');
             }
 
-            // checking for creator role
-            if ($creator && $creator->role === 'admin') {
-                return redirect()
-                    ->route('admin.dashboard');
-            }
-
             // Attempt authentication
             if (Auth::guard('creator')->attempt($credentials)) {
+                // checking for creator role
+                if ($creator && $creator->role === 'admin') {
+                    return redirect()
+                        ->route('admin.dashboard')
+                        ->with('success', 'Welcome Back Admin !');
+                }
+
                 $request->session()->regenerate();
 
                 return redirect()

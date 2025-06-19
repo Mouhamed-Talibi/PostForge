@@ -1,5 +1,6 @@
 <?php
 
+    use App\Http\Controllers\AdminController;
     use App\Http\Controllers\AppController;
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\CommentController;
@@ -93,7 +94,7 @@
     });
 
     // admin routes 
-    Route::middleware(['auth:creator', 'verified', 'addmin'])->name('admin.')->prefix('admin')->group( function() {
+    Route::middleware(['auth:creator', 'verified'])->name('admin.')->prefix('admin')->group( function() {
         // dashboard
         Route::get('dashboard', [AdminController::class, 'dashboard'])
         ->name('dashboard');

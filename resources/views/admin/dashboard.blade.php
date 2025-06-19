@@ -70,8 +70,8 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
-                                            <h6 class="text-muted">Total Users</h6>
-                                            <h3>1,254</h3>
+                                            <h6 class="text-muted">Total Creators</h6>
+                                            <h3>{{ $totalCreators }}</h3>
                                             <span class="badge bg-success">+12%</span>
                                         </div>
                                         <div class="bg-primary-blue bg-opacity-10 p-3 rounded">
@@ -87,8 +87,8 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
-                                            <h6 class="text-muted">Total Revenue</h6>
-                                            <h3>$24,780</h3>
+                                            <h6 class="text-muted">Active Ceators</h6>
+                                            <h3>{{ $activeCreators }}</h3>
                                             <span class="badge bg-success">+8%</span>
                                         </div>
                                         <div class="bg-primary-blue bg-opacity-10 p-3 rounded">
@@ -104,8 +104,8 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
-                                            <h6 class="text-muted">Pending Orders</h6>
-                                            <h3>56</h3>
+                                            <h6 class="text-muted">Pending Posts</h6>
+                                            <h3>{{ $pendingPosts }}</h3>
                                             <span class="badge bg-warning">-2%</span>
                                         </div>
                                         <div class="bg-primary-blue bg-opacity-10 p-3 rounded">
@@ -121,8 +121,24 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
-                                            <h6 class="text-muted">Active Products</h6>
-                                            <h3>342</h3>
+                                            <h6 class="text-muted">Accepted Posts</h6>
+                                            <h3>{{ $acceptedPosts }}</h3>
+                                            <span class="badge bg-success">+5%</span>
+                                        </div>
+                                        <div class="bg-primary-blue bg-opacity-10 p-3 rounded">
+                                            <i class="bi bi-box-seam fs-4 text-primary"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="text-muted">Total Posts</h6>
+                                            <h3>{{ $totalPosts }}</h3>
                                             <span class="badge bg-success">+5%</span>
                                         </div>
                                         <div class="bg-primary-blue bg-opacity-10 p-3 rounded">

@@ -1,65 +1,86 @@
 <?php
 
-namespace App\Http\Controllers;
+    namespace App\Http\Controllers;
 
-use App\Models\Admin;
-use Illuminate\Http\Request;
+    use App\Models\Admin;
+    use App\Models\Creator;
+    use App\Models\Post;
+    use Illuminate\Http\Request;
 
-class AdminController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    class AdminController extends Controller
     {
-        //
-    }
+        /**
+         * Display a listing of the resource.
+         */
+        public function index()
+        {
+            //
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        /**
+         * Show the form for creating a new resource.
+         */
+        public function create()
+        {
+            //
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        /**
+         * Store a newly created resource in storage.
+         */
+        public function store(Request $request)
+        {
+            //
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Admin $admin)
-    {
-        //
-    }
+        /**
+         * Display the specified resource.
+         */
+        public function show(Admin $admin)
+        {
+            //
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Admin $admin)
-    {
-        //
-    }
+        /**
+         * Show the form for editing the specified resource.
+         */
+        public function edit(Admin $admin)
+        {
+            //
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Admin $admin)
-    {
-        //
-    }
+        /**
+         * Update the specified resource in storage.
+         */
+        public function update(Request $request, Admin $admin)
+        {
+            //
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Admin $admin)
-    {
-        //
+        /**
+         * Remove the specified resource from storage.
+         */
+        public function destroy(Admin $admin)
+        {
+            //
+        }
+
+        /**
+         * admin dashboard
+         */
+        public function dashboard() 
+        {
+            $totalCreators = Creator::all()->count();
+            $pendingPosts = Post::where('status', 'pending')->count();
+            $acceptedPosts = Post::where('status', 'accepted')->count();
+            $activeCreators = Creator::where('status', 'active')->count();
+            $totalPosts = Post::all()->count();
+            return view('admin.dashboard', [
+                'totalCreators' => $totalCreators,
+                'pendingPosts' => $pendingPosts,
+                'activeCreators' => $activeCreators,
+                'acceptedPosts' => $acceptedPosts,
+                'totalPosts' => $totalPosts,
+            ]);
+        }
     }
-}
