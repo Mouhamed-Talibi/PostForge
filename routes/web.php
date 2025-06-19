@@ -91,3 +91,10 @@
         Route::post('/posts/{post}/comment', [CommentController::class, 'store'])
             ->name('store');
     });
+
+    // admin routes 
+    Route::middleware(['auth:creator', 'verified', 'addmin'])->name('admin.')->prefix('admin')->group( function() {
+        // dashboard
+        Route::get('dashboard', [AdminController::class, 'dashboard'])
+        ->name('dashboard');
+    });

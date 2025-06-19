@@ -67,9 +67,17 @@
 
             // Check if user exists
             $creator = Creator::where('email', $credentials['email'])->first();
+
+            // creator not found case 
             if (!$creator) {
                 return back()
                     ->with('error', 'No account found with this email');
+            }
+
+            // checking for creator role
+            if ($creator && $creator->role === 'admin') {
+                return redirect()
+                    ->route('admin.dashboard');
             }
 
             // Attempt authentication
