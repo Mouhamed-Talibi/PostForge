@@ -1,6 +1,6 @@
 @extends('layout.admin')
 
-    @section('title','Dashboard')
+    @section('title','Admin Dashboard')
 
     @section('content')
         <div class="wrapper d-flex">
@@ -11,7 +11,7 @@
                 </div>
                 <ul class="nav flex-column px-3">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link active" href="{{ route('admin.dashboard')}}">
                             <i class="bi bi-speedometer2"></i> Dashboard
                         </a>
                     </li>
@@ -36,12 +36,12 @@
             <!-- Main Content -->
             <div class="main-content w-100">
                 <!-- Top Navbar -->
-                <nav class="navbar navbar-expand-lg top-navbar mb-4 rounded shadow-none">
+                <nav class="navbar navbar-expand-lg top-navbar mb-4 shadow-none">
                     <div class="container-fluid">
                         <button class="btn btn-link d-md-none" id="sidebarToggle">
-                            <i class="bi bi-list"></i>
+                            <i class="fa-solid fa-list text-dark fs-4"></i>
                         </button>
-                        
+
                         <div class="d-flex ms-auto align-items-center">
                             <div class="dropdown">
                                 <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
@@ -83,7 +83,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                        </div>
+                            </div>
                         </div>
                     </div>
                 </nav>
@@ -173,23 +173,60 @@
                     
                     <!-- Charts and Tables -->
                     <div class="row mt-4">
-                        <div class="col-lg-8">
-                            <div class="card">
+                        {{-- quick actions --}}
+                        <div class="col-lg-6">
+                            <div class="card border border-1 shadow">
                                 <div class="card-header">
-                                    <h5>Sales Overview</h5>
+                                    <h5>Quick Actions</h5>
                                 </div>
                                 <div class="card-body">
-                                    <div style="height: 300px;">
-                                        <!-- Chart would go here -->
-                                        <div class="d-flex justify-content-center align-items-center h-100 text-muted">
-                                            [Sales Chart Placeholder]
-                                        </div>
-                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item border-0 px-0">
+                                            <div class="d-flex">
+                                                <div class="me-3">
+                                                    <span class="bg-success bg-opacity-50 text-dark px-2 py-2 rounded-circle">
+                                                        <i class="fa-solid fa-user-plus"></i>
+                                                    </span>
+                                                    <a href="" class="btn ms-3">New Creator</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item border-0 px-0">
+                                            <div class="d-flex">
+                                                <div class="me-3">
+                                                    <span class="bg-secondary bg-opacity-75 text-white p-2 rounded-circle">
+                                                        <i class="fa-solid fa-layer-group"></i>
+                                                    </span>
+                                                    <a href="" class="btn ms-3">Manage Categories</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item border-0 px-0">
+                                            <div class="d-flex">
+                                                <div class="me-3">
+                                                    <span class="bg-info bg-opacity-75 text-white p-2 rounded-circle">
+                                                        <i class="fa-solid fa-file text-dark"></i>
+                                                    </span>
+                                                    <a href="" class="btn ms-3">Manage Posts</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item border-0 px-0">
+                                            <div class="d-flex">
+                                                <div class="me-3">
+                                                    <span class="bg-success bg-opacity-25 text-white p-2 rounded-circle">
+                                                        <i class="fa-solid fa-circle-user text-dark"></i>
+                                                    </span>
+                                                    <a href="" class="btn ms-3">Manage Creators</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="col-lg-4">
+                        {{-- recent activity --}}
+                        <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-header">
                                     <h5>Recent Activity</h5>
@@ -200,12 +237,12 @@
                                             <div class="d-flex">
                                                 <div class="me-3">
                                                     <span class="bg-primary bg-opacity-10 text-primary p-2 rounded-circle">
-                                                        <i class="bi bi-cart"></i>
+                                                        <i class="fa-solid fa-plus"></i>
                                                     </span>
                                                 </div>
                                                 <div>
-                                                    <h6 class="mb-1">New order #1234</h6>
-                                                    <p class="mb-0 text-muted small">2 min ago</p>
+                                                    <h6 class="mb-1">New Post | <span class="fw-bold text-primary">{{ $newPost->title }}</span></h6>
+                                                    <p class="mb-0 text-muted small">{{ $newPost->created_at->diffForHumans() }}</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -213,12 +250,12 @@
                                             <div class="d-flex">
                                                 <div class="me-3">
                                                     <span class="bg-primary bg-opacity-10 text-primary p-2 rounded-circle">
-                                                        <i class="bi bi-person-plus"></i>
+                                                        <i class="fa-solid fa-address-card"></i>
                                                     </span>
                                                 </div>
                                                 <div>
-                                                    <h6 class="mb-1">New user registered</h6>
-                                                    <p class="mb-0 text-muted small">1 hour ago</p>
+                                                    <h6 class="mb-1">New user registered | <span class="text-primary fw-bold">{{ $newCreator->creator_name }}</span></h6>
+                                                    <p class="mb-0 text-muted small">{{ $newCreator->created_at->diffForHumans() }}</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -226,12 +263,12 @@
                                             <div class="d-flex">
                                                 <div class="me-3">
                                                     <span class="bg-primary bg-opacity-10 text-primary p-2 rounded-circle">
-                                                        <i class="bi bi-box-seam"></i>
+                                                        <i class="fa-solid fa-file-pen"></i>
                                                     </span>
                                                 </div>
                                                 <div>
-                                                    <h6 class="mb-1">Product #456 updated</h6>
-                                                    <p class="mb-0 text-muted small">3 hours ago</p>
+                                                    <h6 class="mb-1">Post <span class="text-primary fw-bold">#{{ $lastUpdatedPost->id }}</span> updated</h6>
+                                                    <p class="mb-0 text-muted small">{{ $lastUpdatedPost->updated_at->diffForHumans() }}</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -249,15 +286,37 @@
     @endsection
 
     <script>
-        // Toggle sidebar on mobile
-        document.getElementById('sidebarToggle').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('active');
-            document.querySelector('.overlay').classList.toggle('active');
-        });
-        
-        // Close sidebar when clicking overlay
-        document.querySelector('.overlay').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.remove('active');
-            this.classList.remove('active');
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.overlay');
+            
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    sidebar.classList.toggle('active');
+                    overlay.classList.toggle('active');
+                    
+                    // Optional: Prevent body scrolling when sidebar is open
+                    document.body.classList.toggle('no-scroll');
+                });
+                
+                overlay.addEventListener('click', function() {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.classList.remove('no-scroll');
+                });
+            }
+            
+            // Optional: Close sidebar when clicking nav links on mobile
+            document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 992) {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                        document.body.classList.remove('no-scroll');
+                    }
+                });
+            });
         });
     </script>

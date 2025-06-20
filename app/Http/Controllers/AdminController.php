@@ -96,6 +96,10 @@
             $pendingPosts = Post::where('status', 'pending')->count();
             $acceptedPosts = Post::where('status', 'accepted')->count();
 
+            // recent activities 
+            $newPost = Post::where('status', 'pending')->latest()->first();
+            $newCreator = Creator::latest()->first();
+            $lastUpdatedPost = Post::latest()->first();
             // return with with data
             return view('admin.dashboard', [
                 'totalCreators' => $totalCreators,
@@ -104,6 +108,9 @@
                 'postsGrowth' => round($postsGrowth, 1),
                 'pendingPosts' => $pendingPosts,
                 'acceptedPosts' => $acceptedPosts,
+                'newPost' => $newPost,
+                'newCreator' => $newCreator,
+                'lastUpdatedPost' => $lastUpdatedPost,
             ]);
         }
     }

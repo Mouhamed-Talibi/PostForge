@@ -9,8 +9,8 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f5f5;
     color: var(--rich-black);
+    background-color: var(--pure-white);
 }
 
 /* Sidebar styling */
@@ -72,30 +72,37 @@ body {
     font-weight: 600;
 }
 
-/* Responsive adjustments */
-@media (max-width: 992px) {
+/* Ensure sidebar is hidden by default on mobile */
+@media (max-width: 991.98px) {
     .sidebar {
-        margin-left: -250px;
+        position: fixed;
+        left: -250px;
+        top: 0;
+        bottom: 0;
+        z-index: 1050;
+        transition: all 0.3s ease;
     }
-
+    
     .sidebar.active {
-        margin-left: 0;
+        left: 0;
     }
-
-    .main-content {
-        margin-left: 0;
-    }
-
+    
     .overlay {
         display: none;
         position: fixed;
-        width: 100vw;
-        height: 100vh;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
         background: rgba(0, 0, 0, 0.5);
-        z-index: 999;
+        z-index: 1040;
     }
-
+    
     .overlay.active {
         display: block;
+    }
+    
+    .main-content {
+        margin-left: 0 !important;
     }
 }
