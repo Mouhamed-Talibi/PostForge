@@ -36,7 +36,7 @@
             <!-- Main Content -->
             <div class="main-content w-100">
                 <!-- Top Navbar -->
-                <nav class="navbar navbar-expand-lg top-navbar mb-4">
+                <nav class="navbar navbar-expand-lg top-navbar mb-4 rounded shadow-none">
                     <div class="container-fluid">
                         <button class="btn btn-link d-md-none" id="sidebarToggle">
                             <i class="bi bi-list"></i>
@@ -45,16 +45,45 @@
                         <div class="d-flex ms-auto align-items-center">
                             <div class="dropdown">
                                 <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-circle me-2">
-                                    <span>Admin User</span>
+                                    <span>
+                                        <img src="{{ asset('storage/' . auth('creator')->user()->image) }}" alt="" class="img-fluid rounded-circle"
+                                            style="width: 50px; height: 50px; object-fit: cover;">
+                                    </span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
                                     <li><a class="dropdown-item" href="#">Profile</a></li>
-                                    <li><a class="dropdown-item" href="#">Settings</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                                    <li>
+                                        <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                            <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                        </button>
+                                    </li>
                                 </ul>
                             </div>
+                            <!-- Logout Modal -->
+                            <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-dark text-light px-5">
+                                            <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body py-5 px-4">
+                                            <p class="fw-bold">Are you sure you want to log out?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                                            <!-- Actual Logout Form -->
+                                            <form action="{{ route('auth.logout') }}" method="POST" class="d-inline">
+                                                @csrf
+                                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                    Logout <i class="fa-solid fa-right-from-bracket"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                        </div>
                         </div>
                     </div>
                 </nav>
@@ -70,8 +99,9 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="metric-card">
-                                            <h6 class="text-muted">Total Creators</h6>
-                                            <h3>{{ number_format($totalCreators) }}</h3>
+                                            <i class="fa-solid fa-users fs-4 text-info"></i>
+                                            <h6 class="text-muted d-inline ms-3">Total Creators</h6>
+                                            <h3 class="mt-3">{{ number_format($totalCreators) }}</h3>
                                             <span class="badge bg-{{ $creatorsGrowth >= 0 ? 'success' : 'danger' }}">
                                                 {{ $creatorsGrowth >= 0 ? '+' : '' }}{{ number_format($creatorsGrowth, 1) }}%
                                                 <i class="bi bi-arrow-{{ $creatorsGrowth >= 0 ? 'up' : 'down' }}"></i>
@@ -89,10 +119,14 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h6 class="text-muted">Active Ceators</h6>
-                                            {{-- <h3>{{ $activeCreators }}</h3> --}}
-                                            <span class="badge bg-success">+8%</span>
+                                        <div class="metric-card">
+                                            <i class="fa-solid fa-newspaper fs-4 text-info"></i>
+                                            <h6 class="text-muted d-inline ms-3">Total Posts</h6>
+                                            <h3 class="mt-3">{{ number_format($totalPosts) }}</h3>
+                                            <span class="badge bg-{{ $postsGrowth >= 0 ? 'success' : 'danger' }}">
+                                                {{ $postsGrowth >= 0 ? '+' : '' }}{{ number_format($postsGrowth, 1) }}%
+                                                <i class="bi bi-arrow-{{ $postsGrowth >= 0 ? 'up' : 'down' }}"></i>
+                                            </span>
                                         </div>
                                         <div class="bg-primary-blue bg-opacity-10 p-3 rounded">
                                             <i class="bi bi-currency-dollar fs-4 text-primary"></i>
@@ -106,10 +140,10 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h6 class="text-muted">Pending Posts</h6>
-                                            {{-- <h3>{{ $pendingPosts }}</h3> --}}
-                                            <span class="badge bg-warning">-2%</span>
+                                        <div class="metric-card">
+                                            <i class="fa-solid fa-clock fs-4 text-warning"></i>
+                                            <h6 class="text-muted d-inline ms-3">Pending Posts</h6>
+                                            <h3 class="mt-4">{{ number_format($pendingPosts) }}</h3>
                                         </div>
                                         <div class="bg-primary-blue bg-opacity-10 p-3 rounded">
                                             <i class="bi bi-cart fs-4 text-primary"></i>
@@ -123,26 +157,10 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h6 class="text-muted">Accepted Posts</h6>
-                                            {{-- <h3>{{ $acceptedPosts }}</h3> --}}
-                                            <span class="badge bg-success">+5%</span>
-                                        </div>
-                                        <div class="bg-primary-blue bg-opacity-10 p-3 rounded">
-                                            <i class="bi bi-box-seam fs-4 text-primary"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h6 class="text-muted">Total Posts</h6>
-                                            {{-- <h3>{{ $totalPosts }}</h3> --}}
-                                            <span class="badge bg-success">+5%</span>
+                                        <div class="metric-card">
+                                            <i class="fa-solid fa-circle-check fs-4 text-success"></i>
+                                            <h6 class="text-muted d-inline ms-3">Accepted Posts</h6>
+                                            <h3 class="mt-4">{{ number_format($acceptedPosts) }}</h3>
                                         </div>
                                         <div class="bg-primary-blue bg-opacity-10 p-3 rounded">
                                             <i class="bi bi-box-seam fs-4 text-primary"></i>

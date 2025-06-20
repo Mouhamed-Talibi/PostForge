@@ -79,18 +79,31 @@
 
             $creatorsGrowth = $previousCreators > 0
                 ? (($totalCreators - $previousCreators ) / $previousCreators) * 100
-                : ($totalCreators > 0 ? 100 : 0);
+                : 100;
 
+            // getting posts growth per month
             $totalPosts = Post::count();
             $previousPosts = Post::whereBetween('created_at', [
                 now()->subMonth()->startOfMonth(),
                 now()->subMonth()->endOfMonth(),
             ])->count();
 
+            $postsGrowth = $previousPosts > 0
+                ? (($totalPosts - $previousPosts) / $previousPosts) * 100
+                : 100;
+
+            // pending & accepted Posts
+            $pendingPosts = Post::where('status', 'pending')->count();
+            $acceptedPosts = Post::where('status', 'accepted')->count();
+
             // return with with data
             return view('admin.dashboard', [
                 'totalCreators' => $totalCreators,
                 'creatorsGrowth' => round($creatorsGrowth, 1),
+                'totalPosts' => $totalPosts,
+                'postsGrowth' => round($postsGrowth, 1),
+                'pendingPosts' => $pendingPosts,
+                'acceptedPosts' => $acceptedPosts,
             ]);
         }
     }
