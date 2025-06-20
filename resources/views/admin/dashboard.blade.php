@@ -69,10 +69,13 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <div>
+                                        <div class="metric-card">
                                             <h6 class="text-muted">Total Creators</h6>
-                                            <h3>{{ $totalCreators }}</h3>
-                                            <span class="badge bg-success">+12%</span>
+                                            <h3>{{ number_format($totalCreators) }}</h3>
+                                            <span class="badge bg-{{ $creatorsGrowth >= 0 ? 'success' : 'danger' }}">
+                                                {{ $creatorsGrowth >= 0 ? '+' : '' }}{{ number_format($creatorsGrowth, 1) }}%
+                                                <i class="bi bi-arrow-{{ $creatorsGrowth >= 0 ? 'up' : 'down' }}"></i>
+                                            </span>
                                         </div>
                                         <div class="bg-primary-blue bg-opacity-10 p-3 rounded">
                                             <i class="bi bi-people fs-4 text-primary"></i>
@@ -88,7 +91,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <h6 class="text-muted">Active Ceators</h6>
-                                            <h3>{{ $activeCreators }}</h3>
+                                            {{-- <h3>{{ $activeCreators }}</h3> --}}
                                             <span class="badge bg-success">+8%</span>
                                         </div>
                                         <div class="bg-primary-blue bg-opacity-10 p-3 rounded">
@@ -105,7 +108,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <h6 class="text-muted">Pending Posts</h6>
-                                            <h3>{{ $pendingPosts }}</h3>
+                                            {{-- <h3>{{ $pendingPosts }}</h3> --}}
                                             <span class="badge bg-warning">-2%</span>
                                         </div>
                                         <div class="bg-primary-blue bg-opacity-10 p-3 rounded">
@@ -122,7 +125,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <h6 class="text-muted">Accepted Posts</h6>
-                                            <h3>{{ $acceptedPosts }}</h3>
+                                            {{-- <h3>{{ $acceptedPosts }}</h3> --}}
                                             <span class="badge bg-success">+5%</span>
                                         </div>
                                         <div class="bg-primary-blue bg-opacity-10 p-3 rounded">
@@ -138,7 +141,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <h6 class="text-muted">Total Posts</h6>
-                                            <h3>{{ $totalPosts }}</h3>
+                                            {{-- <h3>{{ $totalPosts }}</h3> --}}
                                             <span class="badge bg-success">+5%</span>
                                         </div>
                                         <div class="bg-primary-blue bg-opacity-10 p-3 rounded">

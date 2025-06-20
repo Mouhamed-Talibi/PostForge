@@ -70,17 +70,27 @@
          */
         public function dashboard() 
         {
-            $totalCreators = Creator::all()->count();
-            $pendingPosts = Post::where('status', 'pending')->count();
-            $acceptedPosts = Post::where('status', 'accepted')->count();
-            $activeCreators = Creator::where('status', 'active')->count();
-            $totalPosts = Post::all()->count();
+            // getting creatorsGrwoth per week 
+            $totalCreators = Creator::count();
+            $previousCreators = Creator::whereBetween('created_at', [
+                now()->subMonth()->startOfMonth(),
+                now()->subMonth()->endOfMonth(),
+            ])->count();
+
+            $creatorsGrowth = $previousCreators > 0
+                ? (($totalCreators - $previousCreators ) / $previousCreators) * 100
+                : ($totalCreators > 0 ? 100 : 0);
+
+            $totalPosts = Post::count();
+            $previousPosts = Post::whereBetween('created_at', [
+                now()->subMonth()->startOfMonth(),
+                now()->subMonth()->endOfMonth(),
+            ])->count();
+
+            // return with with data
             return view('admin.dashboard', [
                 'totalCreators' => $totalCreators,
-                'pendingPosts' => $pendingPosts,
-                'activeCreators' => $activeCreators,
-                'acceptedPosts' => $acceptedPosts,
-                'totalPosts' => $totalPosts,
+                'creatorsGrowth' => round($creatorsGrowth, 1),
             ]);
         }
     }
