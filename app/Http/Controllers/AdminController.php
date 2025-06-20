@@ -113,4 +113,11 @@
                 'lastUpdatedPost' => $lastUpdatedPost,
             ]);
         }
+
+        /**
+         * new Creator
+         */
+        public function newCreator() {
+            return view('admin.new_creator');
+        }
     }

@@ -94,8 +94,11 @@
     });
 
     // admin routes 
-    Route::middleware(['auth:creator', 'verified'])->name('admin.')->prefix('admin')->group( function() {
+    Route::middleware(['auth:creator', 'verified', 'admin'])->name('admin.')->prefix('admin')->group( function() {
         // dashboard
         Route::get('dashboard', [AdminController::class, 'dashboard'])
         ->name('dashboard');
+        // new Creator
+        Route::get('newCreator', [AdminController::class, 'newCreator'])
+            ->name('new_creator');
     });

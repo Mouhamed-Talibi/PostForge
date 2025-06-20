@@ -38,9 +38,111 @@
         <x-flash-messages />
 
         {{-- main content --}}
-        <main class="">
-            @yield('content')
-        </main>
+        <div class="wrapper d-flex">
+            <!-- Sidebar -->
+            <aside class="sidebar col-md-3 col-lg-2 d-md-block">
+                <div class="sidebar-header">
+                    <h4>PostForge</h4>
+                    <hr class="text-primary">
+                </div>
+                <ul class="nav flex-column px-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ route('admin.dashboard')}}">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="creatorsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-people"></i> Creators
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="creatorsDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('admin.new_creator') }}">
+                                    <i class="bi bi-person-plus me-2"></i> New Creator
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="">
+                                    <i class="bi bi-list-ul me-2"></i> Creators List
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-box-seam"></i> Categories
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-cart"></i> Posts
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="main-content w-100">
+                <!-- Top Navbar -->
+                <nav class="navbar navbar-expand-lg top-navbar mb-4 shadow-none">
+                    <div class="container-fluid">
+                        <button class="btn btn-link d-md-none" id="sidebarToggle">
+                            <i class="fa-solid fa-list text-dark fs-4"></i>
+                        </button>
+
+                        <div class="d-flex ms-auto align-items-center">
+                            <div class="dropdown">
+                                <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span>
+                                        <img src="{{ asset('storage/' . auth('creator')->user()->image) }}" alt="" class="img-fluid rounded-circle"
+                                            style="width: 50px; height: 50px; object-fit: cover;">
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                            <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Logout Modal -->
+                            <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-dark text-light px-5">
+                                            <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body py-5 px-4">
+                                            <p class="fw-bold">Are you sure you want to log out?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                                            <!-- Actual Logout Form -->
+                                            <form action="{{ route('auth.logout') }}" method="POST" class="d-inline">
+                                                @csrf
+                                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                    Logout <i class="fa-solid fa-right-from-bracket"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                {{-- page content --}}
+                @yield('pageContent')
+
+            </div>
+            <!-- Overlay for mobile sidebar -->
+            <div class="overlay"></div>
+        </div>
     </div>
 
 
@@ -55,5 +157,7 @@
     <script src="{{ asset('js/offcanvas_close.js') }}"></script>
     {{-- likes js --}}
     <script src="{{ asset('js/likes.js') }}"></script>
+    {{-- sidebar js --}}
+    <script src="{{ asset('js/sidebar.js')}}"></script>
 </body>
 </html>
