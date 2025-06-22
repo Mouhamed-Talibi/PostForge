@@ -62,7 +62,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="">
+                                <a class="dropdown-item" href="{{ route('admin.creators_list') }}">
                                     <i class="bi bi-list-ul me-2"></i> Creators List
                                 </a>
                             </li>

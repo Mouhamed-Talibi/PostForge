@@ -169,6 +169,8 @@
          */
         public function creatorsList() {
             $creators = Creator::all();
-            dd($creators);
+            return view('admin.creatorsList', [
+                'creators' => $creators,
+            ]);
         }
     }
