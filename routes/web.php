@@ -104,4 +104,7 @@
         // new Creator store
         Route::post('newCreator', [AdminController::class, 'newCreatorStore'])
             ->name('new_creator.store');
+        // creators list
+        Route::get('creators', [AdminController::class, 'creatorsList'])
+            ->name('creators_list');
     });

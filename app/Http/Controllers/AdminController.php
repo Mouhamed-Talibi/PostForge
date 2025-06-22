@@ -3,11 +3,15 @@
     namespace App\Http\Controllers;
 
     use App\Http\Requests\RegistrationRequest;
+    use App\Mail\EmailConfirmation;
     use App\Models\Admin;
     use App\Models\Creator;
     use App\Models\Post;
     use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Hash;
+    use Illuminate\Support\Facades\Mail;
+    use Illuminate\Support\Str;
 
     class AdminController extends Controller
     {
@@ -130,7 +134,41 @@
          * new Creator store
          */
         public function newCreatorStore(RegistrationRequest $request) {
-            $validatedData = $request->validated();
-            dd($validatedData);
+            $validatedFields = $request->validated();
+            $validatedFields['password'] = Hash::make($validatedFields['password']);
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = date('Ymd') . "_" . Str::random(10) . '.' . $image->getClientOriginalExtension();
+                $imagePath = $image->storeAs('uploads/creators_images', $imageName, 'public');
+                $validatedFields['image'] = $imagePath;
+            } else {
+                $validatedFields['image'] = 'uploads/creators_images/profile.png';
+            }
+
+            // Create creator
+            $creator = Creator::create([
+                'creator_name' => $validatedFields['creator_name'],
+                'gender' => $validatedFields['gender'],
+                'age' => $validatedFields['age'],
+                'email' => $validatedFields['email'],
+                'email_verified_at' => now(),
+                'password' => $validatedFields['password'],
+                'image' => $validatedFields['image'],
+                'bio' => $validatedFields['bio'],
+            ]);
+
+            // redirect to login page
+            return redirect()
+                ->route('admin.creators_list')
+                ->with('success', 'Creator Created Successfully!');
+        }
+
+        /**
+         * creators list
+         */
+        public function creatorsList() {
+            $creators = Creator::all();
+            dd($creators);
         }
     }
