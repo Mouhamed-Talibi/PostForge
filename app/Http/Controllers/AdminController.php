@@ -168,9 +168,28 @@
          * creators list
          */
         public function creatorsList() {
-            $creators = Creator::all();
+            $creators = Creator::paginate(6);
             return view('admin.creatorsList', [
                 'creators' => $creators,
             ]);
+        }
+
+        /**
+         * delete creator
+         */
+        public function deleteCreator(string $id) {
+            $creator = Creator::findOrFail($id);
+            $creator->delete();
+            return redirect()
+                ->route('admin.creators_list')
+                ->with('success', 'Creator Deleted Successfully!');
+        }
+
+        /**
+         * edit creator
+         */
+        public function editCreator(string $creator) {
+            $creator = Creator::findOrFail($creator);
+            return view('admin.edit_creator', compact('creator'));
         }
     }

@@ -107,4 +107,10 @@
         // creators list
         Route::get('creators', [AdminController::class, 'creatorsList'])
             ->name('creators_list');
+        // delete creator
+        Route::delete('creators/{creator}', [AdminController::class, 'deleteCreator'])
+            ->name('delete_creator');
+        // edit creator 
+        Route::get('creators/{creator}/edit', [AdminController::class, 'editCreator'])
+            ->name('edit_creator');
     });
