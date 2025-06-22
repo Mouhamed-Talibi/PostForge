@@ -113,4 +113,7 @@
         // edit creator 
         Route::get('creators/{creator}/edit', [AdminController::class, 'editCreator'])
             ->name('edit_creator');
+        // update creator
+        Route::put('creators/{creator}', [AdminController::class, 'updateCreator'])
+            ->name('update_creator');
     });

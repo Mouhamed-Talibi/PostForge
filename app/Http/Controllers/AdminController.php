@@ -2,6 +2,7 @@
 
     namespace App\Http\Controllers;
 
+    use App\Http\Requests\EditCreatorByAdminRequest;
     use App\Http\Requests\RegistrationRequest;
     use App\Mail\EmailConfirmation;
     use App\Models\Admin;
@@ -191,5 +192,26 @@
         public function editCreator(string $creator) {
             $creator = Creator::findOrFail($creator);
             return view('admin.edit_creator', compact('creator'));
+        }
+
+        /**
+         * update creator
+         */
+        public function updateCreator(EditCreatorByAdminRequest $request, string $creator) {
+            $validatedData = $request->validated();
+
+            // if new image uploaded
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = date('Yd') . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $imagePath = $image->storeAs('uploads/creatos_images/', $imageName, 'public');
+                $validatedData['image'] = $imagePath;
+            }
+
+            Creator::where('id', $creator)
+                ->update($validatedData);
+
+            return redirect()->route('creators.show', $creator)
+                ->with('success', 'Creator Updated Successfully !');
         }
     }
