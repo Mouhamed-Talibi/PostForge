@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Creator;
 use App\Models\Post;
+use App\Policies\AdminPolicy;
 use App\Policies\CreatorPolicy;
 use App\Policies\PostPolicy;
 use Illuminate\Support\ServiceProvider;

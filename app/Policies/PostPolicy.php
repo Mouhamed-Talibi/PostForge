@@ -32,13 +32,6 @@
         {
             // Handle unauthenticated users (though middleware should prevent this)
             if (!$creator) return false;
-            
-            // Debugging (check logs/storage/logs/laravel.log)
-            \Log::debug('Policy Check', [
-                'creator_id' => $creator->id,
-                'verified' => $creator->email_verified_at
-            ]);
-
             return $creator->email_verified_at !== null;
         }
 

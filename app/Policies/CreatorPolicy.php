@@ -45,7 +45,7 @@ class CreatorPolicy
      */
     public function delete(User $user, Creator $creator): bool
     {
-        return false;
+        return auth('creator')->user()->role === 'admin';
     }
 
     /**
@@ -53,7 +53,7 @@ class CreatorPolicy
      */
     public function restore(User $user, Creator $creator): bool
     {
-        return false;
+        return auth('creator')->user()->role === 'admin';
     }
 
     /**
@@ -67,6 +67,6 @@ class CreatorPolicy
     public function search(Creator $creator): bool
     {
         // Only verified creators can search
-        return $creator->email_verified_at !== null;
+        return $creator->email_verified_at !== null || auth('creator')->user()->role === 'admin';
     }
 }

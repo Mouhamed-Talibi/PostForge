@@ -34,6 +34,13 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary w-100">Login</button>
+
+                        <div class="register mt-3 text-center">
+                            <p class="text-dark-50">
+                                Don't Have Account ?
+                                <a href="{{ route('auth.register')}}" class="text-primary"><span class="fw-bold">Register</span></a>
+                            </p>
+                        </div>
                     </form>
                 </div>
             </div>

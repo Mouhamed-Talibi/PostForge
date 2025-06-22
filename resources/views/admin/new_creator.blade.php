@@ -11,7 +11,7 @@
 
         <div class="row justify-content-center align-items-center mt-5">
             <div class="col-12 col-md-10 col-lg-9">
-                <form action="{{ route('auth.register') }}" method="POST" enctype="multipart/form-data" class="registrationForm p-4 rounded shadow">
+                <form action="{{ route('admin.new_creator.store') }}" method="POST" enctype="multipart/form-data" class="registrationForm p-4 rounded shadow">
                     @csrf
 
                     <div class="mb-3">

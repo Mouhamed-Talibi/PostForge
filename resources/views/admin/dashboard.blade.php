@@ -170,7 +170,7 @@
                                         </span>
                                     </div>
                                     <div>
-                                        <h6 class="mb-1">New user registered | <span class="text-primary fw-bold">{{ $newCreator->creator_name }}</span></h6>
+                                        <h6 class="mb-1">New creator registered | <span class="text-primary fw-bold">{{ $newCreator->creator_name }}</span></h6>
                                         <p class="mb-0 text-muted small">{{ $newCreator->created_at->diffForHumans() }}</p>
                                     </div>
                                 </div>
@@ -183,7 +183,7 @@
                                         </span>
                                     </div>
                                     <div>
-                                        <h6 class="mb-1">Post <span class="text-primary fw-bold">#{{ $lastUpdatedPost->id }}</span> updated</h6>
+                                        <h6 class="mb-1">Last Post updated <span class="text-primary fw-bold">#{{ $lastUpdatedPost->id }}</span></h6>
                                         <p class="mb-0 text-muted small">{{ $lastUpdatedPost->updated_at->diffForHumans() }}</p>
                                     </div>
                                 </div>

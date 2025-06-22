@@ -2,13 +2,18 @@
 
     namespace App\Http\Controllers;
 
+    use App\Http\Requests\RegistrationRequest;
     use App\Models\Admin;
     use App\Models\Creator;
     use App\Models\Post;
+    use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
     use Illuminate\Http\Request;
 
     class AdminController extends Controller
     {
+        use AuthorizesRequests;
+
+
         /**
          * Display a listing of the resource.
          */
@@ -119,5 +124,13 @@
          */
         public function newCreator() {
             return view('admin.new_creator');
+        }
+
+        /**
+         * new Creator store
+         */
+        public function newCreatorStore(RegistrationRequest $request) {
+            $validatedData = $request->validated();
+            dd($validatedData);
         }
     }

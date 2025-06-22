@@ -15,11 +15,11 @@ class isAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // check if user is admin
-        if(!auth('creator')->check() || !auth('creator')->user()->role === 'admin') {
+        // More precise check
+        if (!auth('creator')->check() || auth('creator')->user()->role !== 'admin') {
             return redirect()->route('home');
         }
-
+        
         return $next($request);
     }
 }
