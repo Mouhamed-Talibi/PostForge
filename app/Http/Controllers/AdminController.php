@@ -2,10 +2,12 @@
 
     namespace App\Http\Controllers;
 
+    use App\Http\Requests\CategoryRequest;
     use App\Http\Requests\EditCreatorByAdminRequest;
     use App\Http\Requests\RegistrationRequest;
     use App\Mail\EmailConfirmation;
     use App\Models\Admin;
+    use App\Models\Category;
     use App\Models\Creator;
     use App\Models\Post;
     use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -204,7 +206,7 @@
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = date('Yd') . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-                $imagePath = $image->storeAs('uploads/creatos_images/', $imageName, 'public');
+                $imagePath = $image->storeAs('uploads/creators_images/', $imageName, 'public');
                 $validatedData['image'] = $imagePath;
             }
 
@@ -220,5 +222,51 @@
          */
         public function newCategory() {
             return view('admin.new_category');
+        }
+
+        /**
+         * new Category store
+         */
+        public function newCategoryStore(CategoryRequest $request) {
+            $validatedData = $request->validated();
+
+            // case new image uploaded
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = uniqid() . '_' . date('Y') . '.' . $image->getClientOriginalExtension();
+                $imagePath = $image->storeAs('uploads/categories_images', $imageName, 'public');
+                $validatedData['image'] = $imagePath;
+            }
+
+            $slug = Str::slug($validatedData['name']);
+            Category::create([
+                'name' => $validatedData['name'],
+                'slug' => $slug,
+                'image' => $validatedData['image'],
+            ]);
+
+            return redirect()->route('admin.categories_list')
+                ->with('success', 'New Category Created !');
+        }
+
+        /**
+         * categories List
+         */
+        public function categoriesList() {
+            $categories = Category::paginate(5);
+            return view('admin.categories_list', [
+                'categories' => $categories,
+            ]);
+        }
+
+        /**
+         * delete category
+         */
+        public function deleteCategory(string $id) {
+            $category = Category::findOrFail($id);
+            $category->delete();
+
+            return redirect()->route('admin.categories_list')
+                ->with("success", 'Category Deleted Successfully !');
         }
     }

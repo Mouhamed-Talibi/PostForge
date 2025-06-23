@@ -122,6 +122,9 @@
         // store category
         Route::post('newCategory', [AdminController::class, 'newCategoryStore'])
             ->name('new_category.store');
+        // delete category
+        Route::delete('categories/{category}', [AdminController::class, 'deleteCategory'])
+            ->name('delete_category');
         // categories List
         Route::get('categories', [AdminController::class, 'categoriesList'])
             ->name('categories_list');

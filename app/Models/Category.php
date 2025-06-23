@@ -9,6 +9,13 @@
     {
         use HasFactory;
 
+        // fillable
+        protected $fillable = [
+            'name',
+            'slug',
+            'image',
+        ];
+
         // posts related 
         public function posts() {
             return $this->hasMany(Post::class);
