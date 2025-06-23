@@ -253,7 +253,7 @@
          * categories List
          */
         public function categoriesList() {
-            $categories = Category::paginate(5);
+            $categories = Category::with('posts')->paginate(5);
             return view('admin.categories_list', [
                 'categories' => $categories,
             ]);

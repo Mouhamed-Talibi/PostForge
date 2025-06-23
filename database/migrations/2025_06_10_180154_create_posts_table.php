@@ -24,8 +24,8 @@ return new class extends Migration
                 ->cascadeOnUpdate();
             $table->foreignId('category_id')
                 ->constrained('categories')
-                ->restrictOnDelete()
-                ->restrictOnUpdate();
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
 
             $table->enum('status', ['pending', 'accepted', 'rejected'])
                 ->default('pending');

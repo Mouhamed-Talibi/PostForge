@@ -156,10 +156,12 @@
                                             <i class="fa-solid fa-plus"></i>
                                         </span>
                                     </div>
-                                    <div>
-                                        <h6 class="mb-1">New Post | <span class="fw-bold text-primary">{{ $newPost->title }}</span></h6>
-                                        <p class="mb-0 text-muted small">{{ $newPost->created_at->diffForHumans() }}</p>
-                                    </div>
+                                    @if (!empty($newPost))
+                                        <div>
+                                            <h6 class="mb-1">New Post | <span class="fw-bold text-primary">{{ $newPost->title ?? '' }}</span></h6>
+                                            <p class="mb-0 text-muted small">{{ $newPost->created_at->diffForHumans() }}</p>
+                                        </div>
+                                    @endif
                                 </div>
                             </li>
                             <li class="list-group-item border-0 px-0">
@@ -182,10 +184,12 @@
                                             <i class="fa-solid fa-file-pen"></i>
                                         </span>
                                     </div>
-                                    <div>
-                                        <h6 class="mb-1">Last Post updated <span class="text-primary fw-bold">#{{ $lastUpdatedPost->id }}</span></h6>
-                                        <p class="mb-0 text-muted small">{{ $lastUpdatedPost->updated_at->diffForHumans() }}</p>
-                                    </div>
+                                    @if (!empty($lastUpdatedPost))
+                                        <div>
+                                            <h6 class="mb-1">Last Post updated <span class="text-primary fw-bold">#{{ $lastUpdatedPost->id }}</span></h6>
+                                            <p class="mb-0 text-muted small">{{ $lastUpdatedPost->updated_at->diffForHumans() }}</p>
+                                        </div>
+                                    @endif
                                 </div>
                             </li>
                         </ul>

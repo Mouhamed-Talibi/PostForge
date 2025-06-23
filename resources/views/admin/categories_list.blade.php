@@ -49,7 +49,7 @@
                                             </div>
                                         </td>
                                         <td>{{ $category->slug }}</td>
-                                        <td>{{ $category->posts_count }}</td>
+                                        <td>{{ $category->posts->count() }}</td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <a href="" 
