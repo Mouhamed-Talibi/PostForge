@@ -116,4 +116,13 @@
         // update creator
         Route::put('creators/{creator}', [AdminController::class, 'updateCreator'])
             ->name('update_creator');
+        // new category
+        Route::get('newCatgeory', [AdminController::class, 'newCategory'])
+            ->name('new_category');
+        // store category
+        Route::post('newCategory', [AdminController::class, 'newCategoryStore'])
+            ->name('new_category.store');
+        // categories List
+        Route::get('categories', [AdminController::class, 'categoriesList'])
+            ->name('categories_list');
     });

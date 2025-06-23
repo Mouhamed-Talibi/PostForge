@@ -214,4 +214,11 @@
             return redirect()->route('creators.show', $creator)
                 ->with('success', 'Creator Updated Successfully !');
         }
+
+        /**
+         * new Category
+         */
+        public function newCategory() {
+            return view('admin.new_category');
+        }
     }
