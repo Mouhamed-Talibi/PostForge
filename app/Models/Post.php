@@ -18,6 +18,7 @@
             'creator_id',
             'category_id',
             'image',
+            'status',
         ];
 
         // category method

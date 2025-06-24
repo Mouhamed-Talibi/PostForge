@@ -57,7 +57,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
                             <li>
-                                <a class="dropdown-item" href="{{ route('admin.new_category') }}">
+                                <a class="dropdown-item" href="{{ route('admin.new_post') }}">
                                     <i class="bi bi-person-plus me-2"></i> New Post 
                                 </a>
                             </li>
