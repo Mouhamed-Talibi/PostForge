@@ -113,7 +113,7 @@
                                         <span class="bg-secondary bg-opacity-75 text-white p-2 rounded-circle">
                                             <i class="fa-solid fa-layer-group"></i>
                                         </span>
-                                        <a href="" class="btn ms-3">Manage Categories</a>
+                                        <a href="{{ route('admin.categories_list')}}" class="btn ms-3">Manage Categories</a>
                                     </div>
                                 </div>
                             </li>
