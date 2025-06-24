@@ -4,6 +4,7 @@
 
     use App\Http\Requests\CategoryRequest;
     use App\Http\Requests\EditCreatorByAdminRequest;
+    use App\Http\Requests\PostCreationRequest;
     use App\Http\Requests\RegistrationRequest;
     use App\Mail\EmailConfirmation;
     use App\Models\Admin;
@@ -290,7 +291,7 @@
             if($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = uniqid() . '_' . date('md') . '.' . $image->getClientOriginalExtension();
-                $imagePath = $image->storeAs('uploads/updated_categories/', $imageName, 'public');
+                $imagePath = $image->storeAs('uploads/updated_categories', $imageName, 'public');
                 $validatedData['image'] = $imagePath;
             }
 
@@ -329,5 +330,41 @@
 
             return to_route('admin.posts_list')
                 ->with('success', 'Post Deleted Successfully !');
+        }
+
+        /**
+         * Edit Post
+         */
+        public function editPost(string $post) {
+            $post = Post::findOrFail($post);
+            $categories = Category::all();
+            return view('admin.edit_post', compact('post', 'categories'));
+        }
+
+        /**
+         * update Post
+         */
+        public function updatePost(PostCreationRequest $request, string $post) {
+            $post = Post::findOrFail($post);
+            $validatedData = $request->validated();
+
+            // case new image uploaded 
+            if($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = uniqid() . "_" . date('dm') . '.' . $image->getClientOriginalExtension();
+                $validatedData['image'] = $image->storeAs('uploads/updated_posts', $imageName, 'public');
+            }
+
+            $post->update([
+                'title' => $validatedData['post_title'],
+                'slug' => Str::slug($validatedData['post_title'], '-'),
+                'description' => $validatedData['description'],
+                'category_id' => $validatedData['category'],
+                'image' => $validatedData['image'] ?? $post->image,
+                'status' => 'accepted',
+            ]);
+
+            return to_route('admin.posts_list')
+                ->with('success', 'Post Updated Successfully !');
         }
     }

@@ -29,7 +29,7 @@
                         <li><a class="dropdown-item {{ $currentFilter === 'rejected' ? 'active' : '' }}" href="{{ route('admin.posts_list') }}?status=rejected"><i class="fas fa-times-circle text-danger me-2"></i>Rejected</a></li>
                     </ul>
                 </div>
-                <a href="" class="btn btn-primary"><i class="fas fa-plus me-1"></i>Add New</a>
+                <a href="{{ route('admin.new_post')}}" class="btn btn-primary"><i class="fas fa-plus me-1"></i>Add New</a>
             </div>
         </div>
 
@@ -74,7 +74,7 @@
                                         <a href="{{ route('posts.show', $post->id )}}" class="btn btn-outline-primary me-1" title="View">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="#" class="btn btn-outline-success me-1" title="Edit">
+                                        <a href="{{ route('admin.edit_post', $post->id)}}" class="btn btn-outline-success me-1" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <form action="{{ route('admin.delete_post', $post->id)}}" method="POST" class="d-inline">

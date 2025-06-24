@@ -40,7 +40,8 @@
          */
         public function edit(Creator $creator, Post $post): bool
         {
-            return $creator->id === $post->creator_id;
+            return $creator->id === $post->creator_id
+                || $creator->role === "admin";
         }
 
         /**
@@ -48,7 +49,8 @@
          */
         public function update(Creator $creator, Post $post): bool
         {
-            return $creator->id === $post->creator_id;
+            return $creator->id === $post->creator_id
+                || $creator->role === "admin";
         }
 
         /**
