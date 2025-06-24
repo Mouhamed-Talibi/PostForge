@@ -131,4 +131,7 @@
         // edit category 
         Route::get('categories/{category}/edit', [AdminController::class, 'editCategory'])
             ->name('edit_category');
+        // update category
+        Route::put('categories/{category}', [AdminController::class, 'updateCategory'])
+            ->name('update_category');
     });

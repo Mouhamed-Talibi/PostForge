@@ -277,4 +277,20 @@
             $category = Category::findOrFail($category);
             return view('admin.edit_category', compact('category'));
         }
+
+        /**
+         * update category
+         */
+        public function updatecategory(CategoryRequest $request, string $category) {
+            $validatedData = $request->validated();
+
+            // case new image uploaded 
+            if($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = uniqid() . '_' . date('md') . '.' . $image->getClientOriginalExtension();
+                $imagePath = $image->storeAs('uploads/updated_categories/', $imageName, 'public');
+                $validatedData['image'] = $imagePath;
+            }
+            dd($validatedData);
+        }
     }
