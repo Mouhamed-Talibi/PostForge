@@ -143,10 +143,13 @@
         // new post 
         Route::get('newPost', [AdminController::class, 'newPost'])
             ->name('new_post');
+        // store post 
+        Route::post('newPost', [AdminController::class, 'newPostStore'])
+            ->name('store_post');
         // edit post 
         Route::get('posts/{post}/edit', [AdminController::class, 'editPost'])
             ->name('edit_post');
         // update post
         Route::put('posts/{post}', [AdminController::class, 'updatePost'])
             ->name('update_post');
-    });
+    }); 

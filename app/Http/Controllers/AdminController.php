@@ -367,4 +367,41 @@
             return to_route('admin.posts_list')
                 ->with('success', 'Post Updated Successfully !');
         }
+
+        /**
+         * create Post
+         */
+        public function newPost() {
+            $categories = Category::all();
+            return view('admin.create_post', compact('categories'));
+        }
+
+        /**
+         * store post
+         */
+        public function newPostStore(PostCreationRequest $request) {
+            $validatedData = $request->validated();
+
+            // case image uplaoded 
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = uniqid() . "_" . date('dm') . '.' . $image->getClientOriginalExtension();
+                $validatedData['image'] = $image->storeAs('uploads/posts_images', $imageName, 'public');
+            } else {
+                $validatedData['image'] = 'uploads/posts/images/posts-default-image.png';
+            }
+
+            Post::create([
+                'title' => $validatedData['post_title'],
+                'slug' => Str::slug($validatedData['post_title'], '-'),
+                'description' => $validatedData['description'],
+                'category_id' => $validatedData['category'],
+                'image' => $validatedData['image'],
+                'creator_id' => auth('creator')->id(),
+                'status' => "accepted",
+            ]);
+
+            return to_route('admin.posts_list')
+                ->with('success', 'Post Created Successfully !');
+        }
     }

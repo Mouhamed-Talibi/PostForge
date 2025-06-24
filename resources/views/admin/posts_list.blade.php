@@ -29,7 +29,7 @@
                         <li><a class="dropdown-item {{ $currentFilter === 'rejected' ? 'active' : '' }}" href="{{ route('admin.posts_list') }}?status=rejected"><i class="fas fa-times-circle text-danger me-2"></i>Rejected</a></li>
                     </ul>
                 </div>
-                <a href="{{ route('admin.new_post')}}" class="btn btn-primary"><i class="fas fa-plus me-1"></i>Add New</a>
+                <a href="{{ route('admin.new_post') }}" class="btn btn-primary"><i class="fas fa-plus me-1"></i>Add New</a>
             </div>
         </div>
 
