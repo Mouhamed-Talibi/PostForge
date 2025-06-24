@@ -269,4 +269,12 @@
             return redirect()->route('admin.categories_list')
                 ->with("success", 'Category Deleted Successfully !');
         }
+
+        /**
+         * edit category
+         */
+        public function editCategory(string $category) {
+            $category = Category::findOrFail($category);
+            return view('admin.edit_category', compact('category'));
+        }
     }

@@ -52,7 +52,7 @@
                                         <td>{{ $category->posts->count() }}</td>
                                         <td>
                                             <div class="d-flex gap-2">
-                                                <a href="" 
+                                                <a href="{{ route('admin.edit_category', $category->id )}}" 
                                                     class="btn btn-sm btn-outline-primary"
                                                     title="Edit">
                                                     <i class="fas fa-edit"></i>

@@ -128,4 +128,7 @@
         // categories List
         Route::get('categories', [AdminController::class, 'categoriesList'])
             ->name('categories_list');
+        // edit category 
+        Route::get('categories/{category}/edit', [AdminController::class, 'editCategory'])
+            ->name('edit_category');
     });
