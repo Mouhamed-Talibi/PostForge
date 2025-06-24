@@ -134,4 +134,10 @@
         // update category
         Route::put('categories/{category}', [AdminController::class, 'updateCategory'])
             ->name('update_category');
+        // posts list
+        Route::get('posts', [AdminController::class, 'postsList'])
+            ->name('posts_list');
+        // delete post
+        Route::delete('posts/{post}', [AdminController::class, 'deletePost'])
+            ->name('delete_post');
     });

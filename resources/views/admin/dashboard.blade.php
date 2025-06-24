@@ -123,7 +123,7 @@
                                         <span class="bg-info bg-opacity-75 text-white p-2 rounded-circle">
                                             <i class="fa-solid fa-file text-dark"></i>
                                         </span>
-                                        <a href="" class="btn ms-3">Manage Posts</a>
+                                        <a href="{{ route('admin.posts_list')}}" class="btn ms-3">Manage Posts</a>
                                     </div>
                                 </div>
                             </li>
@@ -133,7 +133,7 @@
                                         <span class="bg-success bg-opacity-25 text-white p-2 rounded-circle">
                                             <i class="fa-solid fa-circle-user text-dark"></i>
                                         </span>
-                                        <a href="" class="btn ms-3">Manage Creators</a>
+                                        <a href="{{ route('admin.creators_list')}}" class="btn ms-3">Manage Creators</a>
                                     </div>
                                 </div>
                             </li>

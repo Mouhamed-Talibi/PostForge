@@ -83,7 +83,8 @@
         public function dashboard() 
         {
             // getting creatorsGrwoth per week 
-            $totalCreators = Creator::count();
+            $totalCreators = Creator::where('role', '=', 'creator')
+                ->count();
             $previousCreators = Creator::whereBetween('created_at', [
                 now()->subMonth()->startOfMonth(),
                 now()->subMonth()->endOfMonth(),
@@ -171,7 +172,8 @@
          * creators list
          */
         public function creatorsList() {
-            $creators = Creator::paginate(6);
+            $creators = Creator::where('role', '=', 'creator')
+                ->paginate(6);
             return view('admin.creatorsList', [
                 'creators' => $creators,
             ]);
@@ -291,6 +293,41 @@
                 $imagePath = $image->storeAs('uploads/updated_categories/', $imageName, 'public');
                 $validatedData['image'] = $imagePath;
             }
-            dd($validatedData);
+
+            Category::where('id', $category)
+                ->update($validatedData);
+
+            return redirect()->route('admin.categories_list')
+                ->with('success', 'Category Updated Successfully !');
+        }
+
+        /**
+         * posts list
+         */
+        public function postsList(Request $request) {
+            $status = $request->query('status');
+            $query = Post::with(['creator', 'category'])
+                ->latest();
+
+            if($status && in_array($status, ['accepted', 'pending', 'rejected'])) {
+                $query->where('status', $status);
+            }
+
+            $posts = $query->paginate(5);
+            return view('admin.posts_list', [
+                'posts' => $posts,
+                'currentFilter' => $status,
+            ]);
+        }
+
+        /**
+         * delete Post
+         */
+        public function deletePost(string $post) {
+            $post = Post::findOrFail($post);
+            $post->delete();
+
+            return to_route('admin.posts_list')
+                ->with('success', 'Post Deleted Successfully !');
         }
     }

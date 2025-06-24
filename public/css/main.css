@@ -106,3 +106,8 @@ body {
         margin-left: 0 !important;
     }
 }
+
+.dropdown-item:hover {
+    background-color: #4c4d4e;
+    color: white;
+}
