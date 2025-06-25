@@ -434,4 +434,12 @@
             $admin = Creator::findOrFail(auth('creator')->id());
             return view('admin.profile', compact('admin'));
         }
+
+        /**
+         * edit profile
+         */
+        public function editProfile(string $id) {
+            $admin = Creator::findOrFail($id);
+            return view('admin.edit_profile', compact('admin'));
+        }
     }

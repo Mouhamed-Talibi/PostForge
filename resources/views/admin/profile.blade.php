@@ -15,7 +15,9 @@
                     <p class="text-muted mb-1">{{ strtoupper($admin->role) }}</p>
                     <p class="text-muted mb-4">{{ $admin->bio }}</p>
                     <div class="d-flex justify-content-center mb-2">
-                        <button type="button" class="btn btn-primary">Edit Profile</button>
+                        <a href="{{ route('admin.edit_profile', $admin->id)}}" class="btn btn-outline-success">
+                            <i class="fa-solid fa-user-pen"></i>
+                        </a>
                     </div>
                 </div>
             </div>
