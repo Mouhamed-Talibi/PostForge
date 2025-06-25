@@ -318,7 +318,7 @@
                 $query->where('status', $status);
             }
 
-            $posts = $query->paginate(5);
+            $posts = $query->get();
             return view('admin.posts_list', [
                 'posts' => $posts,
                 'currentFilter' => $status,
@@ -485,5 +485,25 @@
             $admin->update(['email' => $validatedData['email']]);
             return to_route('admin.profile')
                 ->with('success', 'Email Updated Successfully !');
+        }
+
+        /**
+         * accept post
+         */
+        public function acceptPost(Post $post) {
+            $post->update(['status' => 'accepted']);
+
+            return to_route('admin.posts_list')
+                ->with('success', 'Post Accepted Successfully !');
+        }
+
+        /**
+         * reject post
+         */
+        public function rejectPost(Post $post) {
+            $post->update(['status' => 'rejected']);
+
+            return to_route('admin.posts_list')
+                ->with('success', 'Post rejected Successfully !');
         }
     }

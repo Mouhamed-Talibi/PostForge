@@ -50,7 +50,7 @@
                         <tbody>
                             @forelse ($posts as $post)
                             <tr>
-                                <td>{{ $loop->iteration + ($posts->currentPage() - 1) * $posts->perPage() }}</td>
+                                <td>{{ $post->id }}</td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="flex-shrink-0 me-2">
@@ -70,20 +70,49 @@
                                     </span>
                                 </td>
                                 <td class="text-end">
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <a href="{{ route('posts.show', $post->id )}}" class="btn btn-outline-primary me-1" title="View">
+                                    <div class="d-flex justify-content-end gap-1" style="min-width: 140px;">
+                                        {{-- View Button --}}
+                                        <a href="{{ route('posts.show', $post->id) }}" class="btn btn-outline-primary btn-action" title="View">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ route('admin.edit_post', $post->id)}}" class="btn btn-outline-success me-1" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('admin.delete_post', $post->id)}}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-outline-danger" title="Delete" onclick="return confirm('Are you sure?')">
-                                                <i class="fas fa-trash-alt"></i>
+                                        
+                                        @if($post->status === 'pending')
+                                            {{-- Accept Button --}}
+                                            <button type="button" class="btn btn-outline-success btn-action" 
+                                                    title="Accept Post"
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#acceptPostModal"
+                                                    data-post-id="{{ $post->id }}"
+                                                    data-post-title="{{ $post->title }}"
+                                                    data-action-url="{{ route('admin.posts.accept', $post->id) }}">
+                                                <i class="fas fa-check"></i>
                                             </button>
-                                        </form>
+                                            
+                                            {{-- Reject Button --}}
+                                            <button type="button" class="btn btn-outline-danger btn-action" 
+                                                    title="Reject Post"
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#rejectPostModal"
+                                                    data-post-id="{{ $post->id }}"
+                                                    data-post-title="{{ $post->title }}"
+                                                    data-action-url="{{ route('admin.posts.reject', $post->id) }}">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        @else
+                                            {{-- Edit Button --}}
+                                            <a href="{{ route('admin.edit_post', $post->id) }}" class="btn btn-outline-success btn-action" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            
+                                            {{-- Delete Button --}}
+                                            <form action="{{ route('admin.delete_post', $post->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-outline-danger btn-action" title="Delete" onclick="return confirm('Are you sure?')">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
@@ -102,17 +131,80 @@
                     </table>
                 </div>
             </div>
-            
-            @if($posts->hasPages())
-            <div class="card-footer bg-white">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="small text-muted">
-                        Showing {{ $posts->firstItem() }} to {{ $posts->lastItem() }} of {{ $posts->total() }} entries
-                    </div>
-                    {{ $posts->links() }}
+        </div>
+    </div>
+
+    {{-- Accept Post Modal --}}
+    <div class="modal fade" id="acceptPostModal" tabindex="-1" aria-labelledby="acceptPostModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="acceptPostModalLabel">Accept Post</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to accept this post?</p>
+                    <p class="fw-bold" id="postTitleAccept"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form id="acceptPostForm" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-success">Confirm Accept</button>
+                    </form>
                 </div>
             </div>
-            @endif
+        </div>
+    </div>
+
+    {{-- Reject Post Modal --}}
+    <div class="modal fade" id="rejectPostModal" tabindex="-1" aria-labelledby="rejectPostModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="rejectPostModalLabel">Reject Post</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to reject this post?</p>
+                    <p class="fw-bold" id="postTitleReject"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form id="rejectPostForm" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-danger">Confirm Reject</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
+
+<script>
+    // Accept Post Modal Handler
+    document.addEventListener('DOMContentLoaded', function() {
+        const acceptPostModal = document.getElementById('acceptPostModal');
+        acceptPostModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const postTitle = button.getAttribute('data-post-title');
+            const actionUrl = button.getAttribute('data-action-url');
+            
+            document.getElementById('postTitleAccept').textContent = postTitle;
+            document.getElementById('acceptPostForm').action = actionUrl;
+        });
+
+        // Reject Post Modal Handler
+        const rejectPostModal = document.getElementById('rejectPostModal');
+        rejectPostModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const postTitle = button.getAttribute('data-post-title');
+            const actionUrl = button.getAttribute('data-action-url');
+            
+            document.getElementById('postTitleReject').textContent = postTitle;
+            document.getElementById('rejectPostForm').action = actionUrl;
+        });
+    });
+</script>

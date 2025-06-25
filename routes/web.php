@@ -173,4 +173,10 @@
         // admin update email 
         Route::put('{id}/email', [AdminController::class, 'updateEmail'])
             ->name('update_email');
+        // accept post
+        Route::patch('posts{post}/accept', [AdminController::class, 'acceptPost'])
+            ->name('posts.accept');
+        // reject post
+        Route::patch('posts{post}/reject', [AdminController::class, 'rejectPost'])
+            ->name('posts.reject');
     }); 
