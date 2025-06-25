@@ -8,6 +8,7 @@
     use App\Http\Requests\PostQueryByAdmin;
     use App\Http\Requests\PostSearchRequest;
     use App\Http\Requests\RegistrationRequest;
+    use App\Http\Requests\UpdateAdminProfile;
     use App\Mail\EmailConfirmation;
     use App\Models\Admin;
     use App\Models\Category;
@@ -442,4 +443,26 @@
             $admin = Creator::findOrFail($id);
             return view('admin.edit_profile', compact('admin'));
         }
+
+        /**
+         * update profile
+         */
+        public function updateProfile(UpdateAdminProfile $request ,string $id) {
+            $validatedData = $request->validated();
+
+            // case new image uploaded 
+            if($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = uniqid() . "_" . date('dm') . '.' . $image->getClientOriginalExtension();
+                $validatedData['image'] = $image->storeAs('uploads/admins_images', $imageName, 'public');
+            } else {
+                $validatedData['image'] = Creator::findOrFail($id)->image;
+            }
+
+            Creator::where('id', $id)
+                ->update($validatedData);
+
+            return to_route('admin.profile')
+                ->with('success', 'Profile Updated Successfully !');
+            }
     }

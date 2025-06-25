@@ -8,10 +8,9 @@
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
+            <h1 class="text-center mb-3">Edit profile</h1>
+            <hr>
             <div class="card mb-4">
-                <div class="card-header pb-0">
-                    <h6>Edit Profile</h6>
-                </div>
                 <div class="card-body">
                     <form action="{{ route('admin.update_profile', $admin->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -22,18 +21,8 @@
                                 <div class="form-group mb-2">
                                     <label for="creator_name">Full Name</label>
                                     <input type="text" class="form-control" id="creator_name" name="creator_name" 
-                                            value="{{ old('creator_name', $admin->creator_name) }}" required>
+                                            value="{{ old('creator_name', $admin->creator_name) }}">
                                     @error('creator_name')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group mb-2">
-                                    <label for="email">Email Address</label>
-                                    <input type="email" class="form-control" id="email" name="email" 
-                                            value="{{ old('email', $admin->email) }}" required>
-                                    @error('email')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
