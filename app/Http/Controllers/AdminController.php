@@ -8,6 +8,7 @@
     use App\Http\Requests\PostQueryByAdmin;
     use App\Http\Requests\PostSearchRequest;
     use App\Http\Requests\RegistrationRequest;
+    use App\Http\Requests\UpdateadminEmail;
     use App\Http\Requests\UpdateAdminProfile;
     use App\Mail\EmailConfirmation;
     use App\Models\Admin;
@@ -464,5 +465,25 @@
 
             return to_route('admin.profile')
                 ->with('success', 'Profile Updated Successfully !');
-            }
+        }
+
+        /**
+         * edit Email
+         */
+        public function editEmail(string $id) {
+            $admin = Creator::findOrFail($id);
+            return view('admin.edit_email', compact('admin'));
+        }
+
+        /**
+         * update Email
+         */
+        public function updateEmail(UpdateadminEmail $request, string $id) {
+            $admin = Creator::findOrFail($id);
+            $validatedData = $request->validated();
+
+            $admin->update(['email' => $validatedData['email']]);
+            return to_route('admin.profile')
+                ->with('success', 'Email Updated Successfully !');
+        }
     }

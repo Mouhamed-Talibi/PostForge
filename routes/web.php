@@ -167,4 +167,10 @@
         // admin update profile
         Route::put('{id}', [AdminController::class, 'updateProfile'])
             ->name('update_profile');
+        // admin edit email 
+        Route::get('{id}/edit/email', [AdminController::class, 'editEmail'])
+            ->name('edit_email');
+        // admin update email 
+        Route::put('{id}/email', [AdminController::class, 'updateEmail'])
+            ->name('update_email');
     }); 
