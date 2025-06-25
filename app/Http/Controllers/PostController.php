@@ -128,7 +128,7 @@
         {
             // authorize update
             $this->authorize('update', $post);
-            $post = Post::findOrFail($post);
+
             $validatedFields = $request->validated();
 
             // handling case new image uploaded
@@ -144,7 +144,7 @@
                 'title' => $validatedFields['post_title'],
                 'slug' => str_replace(" ", "-",  $validatedFields['post_title']),
                 'description' =>  $validatedFields['description'],
-                'category' =>  $validatedFields['category'],
+                'category_id' =>  $validatedFields['category'],
                 'image' =>  $validatedFields['image'] ?? $post->image,
             ]);
 
@@ -211,7 +211,7 @@
 
             // check if not empty related posts 
             if ($relatedPosts->isEmpty()) {
-                return redirect()->back()->with('error', 'No posts found.');
+                return redirect()->back()->with('warning', 'No posts found.');
             } else {
                 return view('posts.search', compact('relatedPosts'))
                     ->with('success', 'Posts found successfully :)');
