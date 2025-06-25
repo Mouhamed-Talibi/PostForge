@@ -5,6 +5,8 @@
     use App\Http\Requests\CategoryRequest;
     use App\Http\Requests\EditCreatorByAdminRequest;
     use App\Http\Requests\PostCreationRequest;
+    use App\Http\Requests\PostQueryByAdmin;
+    use App\Http\Requests\PostSearchRequest;
     use App\Http\Requests\RegistrationRequest;
     use App\Mail\EmailConfirmation;
     use App\Models\Admin;
@@ -403,5 +405,33 @@
 
             return to_route('admin.posts_list')
                 ->with('success', 'Post Created Successfully !');
+        }
+
+        /**
+         * find post
+         */
+        public function findPost() {
+            return view('admin.find_post');
+        }
+
+        /**
+         * Query post
+         */
+        public function queryPost(PostQueryByAdmin $request) {
+            $validatedData = $request->validated();
+
+            $post = Post::where('title', 'like', '%' . $validatedData['query'] . '%')
+                ->orWhere('description', 'like', '%' . $validatedData['query'] . '%')
+                ->first();
+
+            return view('admin.find_post', compact('post'));
+        }
+
+        /**
+         * admin profile
+         */
+        public function profile() {
+            $admin = Creator::findOrFail(auth('creator')->id());
+            return view('admin.profile', compact('admin'));
         }
     }

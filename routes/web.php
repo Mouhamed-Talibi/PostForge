@@ -152,4 +152,13 @@
         // update post
         Route::put('posts/{post}', [AdminController::class, 'updatePost'])
             ->name('update_post');
+        // find post 
+        Route::get('findPost', [AdminController::class, 'findPost'])
+            ->name('find_post');
+        // query post 
+        Route::post('findPost', [AdminController::class, 'queryPost'])
+            ->name('query_post');
+        // admin profile
+        Route::get('profile', [AdminController::class, 'profile'])
+            ->name('profile');
     }); 

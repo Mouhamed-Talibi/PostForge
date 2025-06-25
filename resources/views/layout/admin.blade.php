@@ -67,7 +67,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('admin.categories_list') }}">
+                                <a class="dropdown-item" href="{{ route('admin.find_post') }}">
                                     <i class="bi bi-list-ul me-2"></i> Find Post
                                 </a>
                             </li>
@@ -128,7 +128,7 @@
                                     </span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
-                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('admin.profile')}}">Profile</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
                                         <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#logoutModal">

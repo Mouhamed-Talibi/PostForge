@@ -87,7 +87,7 @@
                 'description' => $validatedFields['description'],
                 'creator_id' => auth('creator')->id(),
                 'category_id' => $validatedFields['category'],
-                'image' => $validatedFields['image'] ?? null,
+                'image' => $validatedFields['image'],
             ]);
 
             // redirecting to my posts page ( after creating post )
@@ -128,6 +128,7 @@
         {
             // authorize update
             $this->authorize('update', $post);
+            $post = Post::findOrFail($post);
             $validatedFields = $request->validated();
 
             // handling case new image uploaded
@@ -144,7 +145,7 @@
                 'slug' => str_replace(" ", "-",  $validatedFields['post_title']),
                 'description' =>  $validatedFields['description'],
                 'category' =>  $validatedFields['category'],
-                'image' =>  $validatedFields['image'],
+                'image' =>  $validatedFields['image'] ?? $post->image,
             ]);
 
             // clearing cache
