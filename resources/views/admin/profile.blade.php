@@ -13,7 +13,7 @@
                     <img src="{{ asset('storage/' .$admin->image) }}" alt="Profile Image" class="rounded-circle img-fluid" style="width: 150px; height: 150px; object-fit: cover;">
                     <h5 class="my-3">{{ $admin->admin_name }}</h5>
                     <p class="text-muted mb-1">{{ strtoupper($admin->role) }}</p>
-                    <p class="text-muted mb-4">{{ $admin->bio }}</p>
+                    <p class="text-muted mb-4">{{ Str::limit($admin->bio, 60) }}</p>
                     <div class="d-flex justify-content-center mb-2">
                         <a href="{{ route('admin.edit_profile', $admin->id)}}" class="btn btn-outline-success">
                             <i class="fa-solid fa-user-pen"></i>

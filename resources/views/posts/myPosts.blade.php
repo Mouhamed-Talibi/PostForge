@@ -4,12 +4,6 @@
 
 @section('content')
     <div class="container py-5">
-        @if(session('warning'))
-            <div class="alert alert-warning mb-4">
-                {{ session('warning') }}
-            </div>
-        @endif
-
         <div class="card shadow-sm">
             <div class="card-header bg-white">
                 <h5 class="mb-0">My Posts</h5>
