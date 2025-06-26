@@ -73,17 +73,63 @@
 
                                 {{-- Displaying comments --}}
                                 @foreach ($post->comments as $comment)
-                                    <div class="comment d-flex align-items-start gap-2 p-3 mb-2 bg-light rounded shadow-sm">
-                                        <img src="{{ asset('storage/' . $comment->creator->image) }}" 
-                                            alt="creator photo" 
-                                            style="height: 40px; width: 40px; object-fit: cover;" 
-                                            class="rounded-circle">
+                                    <div class="comment d-flex align-items-start gap-2 p-3 mb-2 bg-light rounded shadow-sm position-relative">
+                                        <!-- User Image -->
+                                        @if($comment->creator && $comment->creator->image)
+                                            <img src="{{ asset('storage/' . $comment->creator->image) }}" 
+                                                alt="creator photo" 
+                                                style="height: 40px; width: 40px; object-fit: cover;" 
+                                                class="rounded-circle">
+                                        @else
+                                            <div class="rounded-circle bg-secondary" style="height: 40px; width: 40px;"></div>
+                                        @endif
 
-                                        <div>
-                                            <h6 class="mb-1 text-dark">{{ $comment->creator->creator_name }}</h6>
-                                            <p class="mb-1 text-muted">{{ $comment->content }}</p>
-                                            <small class="text-secondary">{{ $comment->created_at->diffForHumans() }}</small>
+                                        <!-- Content -->
+                                        <div style="flex: 1;">
+                                            <h6 class="mb-1 text-dark">{{ $comment->creator->creator_name ?? 'Anonymous' }}</h6>
+
+                                            {{-- Inline Edit Section --}}
+                                            @if(request('edit') == $comment->id)
+                                                <!-- Edit Form -->
+                                                <form action="{{ route('comments.update', $comment->id) }}" method="POST" class="mb-2">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <input type="text" name="content" class="form-control mb-2" value="{{ old('comment', $comment->content) }}" required>
+                                                    <div>
+                                                        <button type="submit" class="btn btn-sm btn-success">Save</button>
+                                                        <a href="{{ route('posts.show', $post->id) }}" class="btn btn-sm btn-secondary">Cancel</a>
+                                                    </div>
+                                                    @error('comment')
+                                                        <p class="text-danger fw-bold">{{ $message }}</p>
+                                                    @enderror
+                                                </form>
+                                            @else
+                                                <!-- Static Content -->
+                                                <p class="mb-1 text-muted">{{ $comment->content }}</p>
+                                                <small class="text-secondary">{{ $comment->created_at->diffForHumans() }}</small>
+                                            @endif
                                         </div>
+
+                                        <!-- Actions -->
+                                        @can('update', $comment)
+                                            <div class="dropdown position-absolute top-0 end-0 m-2">
+                                                <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown">
+                                                    <i class="fas fa-ellipsis-h"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="{{ url()->current() }}?edit={{ $comment->id }}">Edit</a>
+                                                    </li>
+                                                    <li>
+                                                        <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Are you sure you want to delete this comment?')">Delete</button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        @endcan
                                     </div>
                                 @endforeach
                             </div>
