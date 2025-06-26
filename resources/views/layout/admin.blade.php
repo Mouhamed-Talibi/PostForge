@@ -88,6 +88,11 @@
                                     <i class="bi bi-list-ul me-2"></i> Creators List
                                 </a>
                             </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('admin.banned_creators') }}">
+                                    <i class="bi bi-list-ul me-2"></i> Banned Creators 
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

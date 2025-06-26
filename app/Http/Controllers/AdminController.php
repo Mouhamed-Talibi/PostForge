@@ -177,7 +177,10 @@
          * creators list
          */
         public function creatorsList() {
-            $creators = Creator::where('role', '=', 'creator')
+            $creators = Creator::where([
+                ['role', '=', 'creator'],
+                ['status', '=', 'active'],
+            ])
                 ->paginate(6);
             return view('admin.creatorsList', [
                 'creators' => $creators,
@@ -505,5 +508,38 @@
 
             return to_route('admin.posts_list')
                 ->with('success', 'Post rejected Successfully !');
+        }
+
+        /**
+         * ban creator
+         */
+        public function banCreator(Creator $creator) {
+            $creator = Creator::findOrFail($creator->id);
+            $creator->update(['status' => "banned"]);
+
+            return redirect()
+                ->route('admin.creators_list')
+                ->with('warning', 'Creator Banned Successfully !');
+        }
+
+        /**
+         * unban creator
+         */
+        public function unbanCreator(Creator $creator) {
+            $creator = Creator::findOrFail($creator->id);
+            $creator->update(['status' => "active"]);
+
+            return redirect()
+                ->route('admin.creators_list')
+                ->with('success', 'Creator Actived Successfully !');
+        }
+
+        /**
+         * banned creators
+         */
+        public function bannedCreators() {
+            $bannedCreators = Creator::where('status', '=', 'banned')
+                ->paginate(6);
+            return view('admin.banned_creators', compact('bannedCreators'));
         }
     }

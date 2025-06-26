@@ -185,4 +185,13 @@
         // reject post
         Route::patch('posts{post}/reject', [AdminController::class, 'rejectPost'])
             ->name('posts.reject');
+        // ban creator 
+        Route::patch('creator/{creator}', [AdminController::class, 'banCreator'])
+            ->name('ban_creator');
+        // unban creator 
+        Route::patch('creator/{creator}/unban', [AdminController::class, 'unbanCreator'])
+            ->name('unban_creator');
+        // baned creators
+        Route::get('creators/banned', [AdminController::class, 'bannedcreators'])
+            ->name('banned_creators');
     }); 
