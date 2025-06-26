@@ -26,9 +26,6 @@
                             <a href="{{ route('creators.show', $creator->id) }}" class="btn btn-outline-secondary">
                                 <i class="fa-solid fa-right-to-bracket"></i>
                             </a>
-                            <a href="{{ route('admin.edit_creator', $creator->id) }}" class="btn btn-info">
-                                <i class="fa-solid fa-user-pen"></i>
-                            </a>
                             <button type="button" class="btn btn-danger" 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#deleteCreatorModal{{ $creator->id }}">

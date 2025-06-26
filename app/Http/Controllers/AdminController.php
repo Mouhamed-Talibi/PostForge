@@ -115,7 +115,9 @@
             $acceptedPosts = Post::where('status', 'accepted')->count();
 
             // recent activities 
-            $newPost = Post::where('status', 'pending')->latest()->first();
+            $newPost = Post::where('status', 'pending')
+                ->orWhere('status', 'accepted')
+                ->latest()->first();
             $newCreator = Creator::latest()->first();
             $lastUpdatedPost = Post::latest()->first();
             // return with with data

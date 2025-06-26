@@ -158,7 +158,7 @@
                                     </div>
                                     @if (!empty($newPost))
                                         <div>
-                                            <h6 class="mb-1">New Post | <span class="fw-bold text-primary">{{ Str::limit($newPost->title ?? '', 30) }}</span></h6>
+                                            <h6 class="mb-1">New Post | <span class="fw-bold text-primary">{{ Str::limit($newPost->title , 30) }}</span></h6>
                                             <p class="mb-0 text-muted small">{{ $newPost->created_at->diffForHumans() }}</p>
                                         </div>
                                     @endif
