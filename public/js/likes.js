@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     document.body.addEventListener('click', function(e) {
-        if (e.target.closest('.like-btn')) {
+        if (e.target.closest('.like-btn') && !e.target.closest('.modal')) {
             const button = e.target.closest('.like-btn');
             const postId = button.dataset.postId;
             const isLiked = button.classList.contains('btn-primary');

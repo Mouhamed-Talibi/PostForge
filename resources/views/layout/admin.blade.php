@@ -107,6 +107,18 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-people"></i> Creator Links
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('posts.index') }}">
+                                    <i class="bi bi-person-plus me-2"></i> Posts
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </aside>
 

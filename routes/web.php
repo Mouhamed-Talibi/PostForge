@@ -91,6 +91,12 @@
         // store comment
         Route::post('/posts/{post}/comment', [CommentController::class, 'store'])
             ->name('store');
+        // update comment
+        Route::patch('/comments/{comment}', [CommentController::class, 'update'])
+            ->name('update');
+        // destroy comment
+        Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
+            ->name('destroy');
     });
 
     // admin routes 

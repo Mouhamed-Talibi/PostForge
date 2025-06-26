@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Comment;
+use App\Models\Creator;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -35,9 +36,9 @@ class CommentPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Comment $comment): bool
+    public function update(Creator $user, Comment $comment): bool
     {
-        return false;
+        return $user->role === "admin" || $comment->creator_id === auth('creator')->id();
     }
 
     /**
@@ -45,7 +46,7 @@ class CommentPolicy
      */
     public function delete(User $user, Comment $comment): bool
     {
-        return false;
+        return $user->role === "admin" || $comment->creator_id === auth('creator')->id();
     }
 
     /**

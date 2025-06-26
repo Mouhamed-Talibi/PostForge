@@ -83,7 +83,7 @@
                                         </form>
                                     </li>
                                     @endcan
-                                    
+
                                     <!-- Additional options can be added here -->
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="#"><i class="fas fa-bookmark me-2"></i> Save</a></li>

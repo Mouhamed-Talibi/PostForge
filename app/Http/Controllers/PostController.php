@@ -103,10 +103,8 @@
          */
         public function show(Post $post)
         {
-            $cachedPost = Cache::remember('post_' . $post->id, 3600, function() use ($post) {
-                return Post::with('category')->findOrFail($post->id);
-            });
-            return view('posts.show', compact('cachedPost'));
+            $post = Post::with(['category', 'comments'])->findOrFail($post->id);
+            return view('posts.show', compact('post'));
         }
 
         /**

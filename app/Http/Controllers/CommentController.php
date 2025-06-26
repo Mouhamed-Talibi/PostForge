@@ -55,15 +55,22 @@
          */
         public function edit(Comment $comment)
         {
-            //
+            // 
         }
 
         /**
          * Update the specified resource in storage.
          */
-        public function update(Request $request, Comment $comment)
+        public function update(CommentRequest $request, Comment $comment)
         {
-            //
+            $validatedData = $request->validated();
+            $comment->update([
+                'content' => $validatedData['content'],
+            ]);
+
+            session_unset();
+
+            return redirect()->route('posts.show', $comment->post_id)->with('success', 'Comment updated successfully!');
         }
 
         /**
@@ -71,6 +78,9 @@
          */
         public function destroy(Comment $comment)
         {
-            //
+            $comment = Comment::findOrFail($comment->id);
+
+            $comment->delete();
+            return redirect()->back()->with('success', 'Comment deleted successfully!');
         }
     }

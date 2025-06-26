@@ -58,7 +58,8 @@
          */
         public function delete(Creator $creator, Post $post): bool
         {
-            return $creator->id === $post->creator_id;
+            return $creator->id === $post->creator_id
+                || $creator->role === "admin";
         }
 
         /**
